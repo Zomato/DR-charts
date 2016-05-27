@@ -1,0 +1,54 @@
+//
+//  HorizontalStackBarChart.h
+//  dr-charts
+//
+//  Created by DHIREN THIRANI on 3/10/16.
+//  Copyright © 2016 Product. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "LegendView.h"
+
+@protocol HorizontalStackBarChartDelegate <NSObject>
+
+- (void)didTapOnHorizontalStackBarChartWithValue:(NSString *)value;
+
+@end
+
+@protocol HorizontalStackBarChartDataSource  <NSObject>
+
+- (NSInteger)numberOfValuesForStackChart;
+//Set number of items to be shown on the Stack Chart
+
+- (UIColor *)colorForValueInStackChartWithIndex:(NSInteger)index;
+//Set Color for each item in a Stack Chart
+//Default Color is Black
+
+- (NSString *)titleForValueInStackChartWithIndex:(NSInteger)index;
+//Set Title for each item in a Stack Chart
+//Default Title is Empty String
+
+- (NSNumber *)valueInStackChartWithIndex:(NSInteger)index;
+//Set Value for each item in a Stack Chart
+
+@end
+
+@interface HorizontalStackBarChart : UIView
+
+@property (nonatomic, strong) id<HorizontalStackBarChartDataSource> dataSource;
+@property (nonatomic, strong) id<HorizontalStackBarChartDelegate> delegate;
+
+//set FONT property for the graph
+@property (nonatomic, strong) UIFont *textFont; //Default is [UIFont systemFontOfSize:textFontSize];
+@property (nonatomic, strong) UIColor *textColor; //Default is [UIColor blackColor]
+@property (nonatomic) CGFloat textFontSize; //Default is 12
+
+//show LEGEND with the graph
+@property (nonatomic) BOOL showLegend; //Default is TRUE
+//Set LEGEND TYPE Horizontal or Vertical
+@property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
+
+- (void)drawStackChart;
+
+@end
+
