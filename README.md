@@ -16,6 +16,12 @@ Easy to use ,customizable and Interactive charts library for iOS in Objective-C
 
 ###Objective-C, iOS 7, 8, 9
 
+
+### Demo
+
+![LineChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/LineChart.gif) ![BarChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/BarChart.gif) ![PieChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/PieChart.gif) ![HorizontalStackChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/HorizontalStackChart.gif) ![CircularChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/CircularChart.gif) 
+
+
 ####CHART TYPE
 ##### Line Chart
 
