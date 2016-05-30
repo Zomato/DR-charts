@@ -1,17 +1,18 @@
 dr-charts
 =========
 
-Easy to use ,customizable and Interactive charts library for iOS in Objective-C
+Easy to use, customizable and interactive charts library for iOS in Objective-C
 
 ####Features:
-* Line / Multiple lines / Lines Parallel To X and Y -Axis
-* Circular Charts
-* Vertical Bar Charts
-* Horizontal Stack Charts
-* Pie Chart
-* Everything is customizable
-* Interactivity support - Easily accessible using the Delegates
+* Multiple chart types
+  * Line / Multiple lines / Lines Parallel To X and Y -Axis
+  * Circular Charts
+  * Vertical Bar Charts
+  * Horizontal Stack Charts
+  * Pie Chart
 * Easy to use: no learning curve, no complicated settings - just assemble Charts with the help of DataSource.
+* Interactivity support - Easily accessible using the Delegates
+* Extremely customizable
 
 
 ###Objective-C, iOS 7, 8, 9
