@@ -504,6 +504,7 @@
 				C50CCB351D0EA0AB002C87B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C50CCB361D0EA0AB002C87B7 /* Build configuration list for PBXNativeTarget "dr-ChartsTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +513,7 @@
 				C50CCB381D0EA0AB002C87B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
