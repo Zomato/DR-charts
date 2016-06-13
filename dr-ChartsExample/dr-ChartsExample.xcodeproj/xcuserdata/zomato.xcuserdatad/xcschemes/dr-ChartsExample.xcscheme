@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C50CCB1E1D0EA0AB002C87B7"
-               BuildableName = "dr-Charts.framework"
-               BlueprintName = "dr-Charts"
-               ReferencedContainer = "container:dr-Charts.xcodeproj">
+               BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
+               BuildableName = "dr-ChartsExample.app"
+               BlueprintName = "dr-ChartsExample"
+               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,30 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C50CCB281D0EA0AB002C87B7"
-               BuildableName = "dr-ChartsTests.xctest"
-               BlueprintName = "dr-ChartsTests"
-               ReferencedContainer = "container:dr-Charts.xcodeproj">
+               BlueprintIdentifier = "C5DBE6741D0EEB6A00785337"
+               BuildableName = "dr-ChartsExampleTests.xctest"
+               BlueprintName = "dr-ChartsExampleTests"
+               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5DBE67F1D0EEB6A00785337"
+               BuildableName = "dr-ChartsExampleUITests.xctest"
+               BlueprintName = "dr-ChartsExampleUITests"
+               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C50CCB1E1D0EA0AB002C87B7"
-            BuildableName = "dr-Charts.framework"
-            BlueprintName = "dr-Charts"
-            ReferencedContainer = "container:dr-Charts.xcodeproj">
+            BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
+            BuildableName = "dr-ChartsExample.app"
+            BlueprintName = "dr-ChartsExample"
+            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,15 +71,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C50CCB1E1D0EA0AB002C87B7"
-            BuildableName = "dr-Charts.framework"
-            BlueprintName = "dr-Charts"
-            ReferencedContainer = "container:dr-Charts.xcodeproj">
+            BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
+            BuildableName = "dr-ChartsExample.app"
+            BlueprintName = "dr-ChartsExample"
+            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,15 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C50CCB1E1D0EA0AB002C87B7"
-            BuildableName = "dr-Charts.framework"
-            BlueprintName = "dr-Charts"
-            ReferencedContainer = "container:dr-Charts.xcodeproj">
+            BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
+            BuildableName = "dr-ChartsExample.app"
+            BlueprintName = "dr-ChartsExample"
+            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

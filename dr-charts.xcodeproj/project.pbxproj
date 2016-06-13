@@ -7,357 +7,299 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C52D103C1CD1349B00D56B92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D103B1CD1349B00D56B92 /* main.m */; };
-		C52D103F1CD1349B00D56B92 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D103E1CD1349B00D56B92 /* AppDelegate.m */; };
-		C52D10421CD1349B00D56B92 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D10411CD1349B00D56B92 /* ViewController.m */; };
-		C52D10471CD1349B00D56B92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52D10461CD1349B00D56B92 /* Assets.xcassets */; };
-		C52D10551CD1349B00D56B92 /* dr_chartsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D10541CD1349B00D56B92 /* dr_chartsTests.m */; };
-		C52D10601CD1349B00D56B92 /* dr_chartsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C52D105F1CD1349B00D56B92 /* dr_chartsUITests.m */; };
-		C534052F1CF1FA3C00FA6A1C /* BarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C534052D1CF1FA3C00FA6A1C /* BarChart.m */; };
-		C53405321CF1FC4600FA6A1C /* CircularChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C53405311CF1FC4600FA6A1C /* CircularChart.m */; };
-		C54451581CEC9CE6006816AF /* DRScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54451571CEC9CE6006816AF /* DRScrollView.m */; };
-		C5A3ECD31CDA2F5F004D4896 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A3ECD21CDA2F5F004D4896 /* Launch Screen.storyboard */; };
-		C5AED8571CD917410038F418 /* HorizontalStackBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED8491CD917410038F418 /* HorizontalStackBarChart.m */; };
-		C5AED8581CD917410038F418 /* LegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED84C1CD917410038F418 /* LegendView.m */; };
-		C5AED8591CD917410038F418 /* LineGraphMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED84F1CD917410038F418 /* LineGraphMarker.m */; };
-		C5AED85A1CD917410038F418 /* MultiLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED8511CD917410038F418 /* MultiLineGraphView.m */; };
-		C5AED85B1CD917410038F418 /* PieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED8541CD917410038F418 /* PieChart.m */; };
-		C5AED85C1CD917410038F418 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AED8561CD917410038F418 /* PageViewController.m */; };
+		C50CCB231D0EA0AB002C87B7 /* dr-Charts.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB221D0EA0AB002C87B7 /* dr-Charts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C50CCB2A1D0EA0AB002C87B7 /* dr-Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50CCB1F1D0EA0AB002C87B7 /* dr-Charts.framework */; };
+		C50CCB2F1D0EA0AB002C87B7 /* dr_ChartsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB2E1D0EA0AB002C87B7 /* dr_ChartsTests.m */; };
+		C50CCB521D0EA0D3002C87B7 /* BarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB3B1D0EA0D3002C87B7 /* BarChart.h */; };
+		C50CCB531D0EA0D3002C87B7 /* BarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB3C1D0EA0D3002C87B7 /* BarChart.m */; };
+		C50CCB541D0EA0D3002C87B7 /* CircularChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB3E1D0EA0D3002C87B7 /* CircularChart.h */; };
+		C50CCB551D0EA0D3002C87B7 /* CircularChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB3F1D0EA0D3002C87B7 /* CircularChart.m */; };
+		C50CCB561D0EA0D3002C87B7 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB401D0EA0D3002C87B7 /* Constants.h */; };
+		C50CCB571D0EA0D3002C87B7 /* DrGraphs.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */; };
+		C50CCB581D0EA0D3002C87B7 /* DRScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */; };
+		C50CCB591D0EA0D3002C87B7 /* DRScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */; };
+		C50CCB5A1D0EA0D3002C87B7 /* HorizontalStackBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB451D0EA0D3002C87B7 /* HorizontalStackBarChart.h */; };
+		C50CCB5B1D0EA0D3002C87B7 /* HorizontalStackBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB461D0EA0D3002C87B7 /* HorizontalStackBarChart.m */; };
+		C50CCB5C1D0EA0D3002C87B7 /* LegendView.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB481D0EA0D3002C87B7 /* LegendView.h */; };
+		C50CCB5D1D0EA0D3002C87B7 /* LegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB491D0EA0D3002C87B7 /* LegendView.m */; };
+		C50CCB5E1D0EA0D3002C87B7 /* LineGraphMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB4B1D0EA0D3002C87B7 /* LineGraphMarker.h */; };
+		C50CCB5F1D0EA0D3002C87B7 /* LineGraphMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB4C1D0EA0D3002C87B7 /* LineGraphMarker.m */; };
+		C50CCB601D0EA0D3002C87B7 /* MultiLineGraphView.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB4D1D0EA0D3002C87B7 /* MultiLineGraphView.h */; };
+		C50CCB611D0EA0D3002C87B7 /* MultiLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB4E1D0EA0D3002C87B7 /* MultiLineGraphView.m */; };
+		C50CCB621D0EA0D3002C87B7 /* PieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB501D0EA0D3002C87B7 /* PieChart.h */; };
+		C50CCB631D0EA0D3002C87B7 /* PieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB511D0EA0D3002C87B7 /* PieChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C52D10511CD1349B00D56B92 /* PBXContainerItemProxy */ = {
+		C50CCB2B1D0EA0AB002C87B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C52D102F1CD1349B00D56B92 /* Project object */;
+			containerPortal = C50CCB161D0EA0AB002C87B7 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C52D10361CD1349B00D56B92;
-			remoteInfo = "dr-charts";
-		};
-		C52D105C1CD1349B00D56B92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C52D102F1CD1349B00D56B92 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C52D10361CD1349B00D56B92;
-			remoteInfo = "dr-charts";
+			remoteGlobalIDString = C50CCB1E1D0EA0AB002C87B7;
+			remoteInfo = "dr-Charts";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C51315BE1CF317BC0080ED26 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		C51315C01CF318B40080ED26 /* DrGraphs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrGraphs.h; sourceTree = "<group>"; };
-		C52D10371CD1349B00D56B92 /* dr-charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dr-charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C52D103B1CD1349B00D56B92 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C52D103D1CD1349B00D56B92 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C52D103E1CD1349B00D56B92 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C52D10401CD1349B00D56B92 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C52D10411CD1349B00D56B92 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C52D10461CD1349B00D56B92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C52D104B1CD1349B00D56B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C52D10501CD1349B00D56B92 /* dr-chartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-chartsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C52D10541CD1349B00D56B92 /* dr_chartsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dr_chartsTests.m; sourceTree = "<group>"; };
-		C52D10561CD1349B00D56B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C52D105B1CD1349B00D56B92 /* dr-chartsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-chartsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C52D105F1CD1349B00D56B92 /* dr_chartsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dr_chartsUITests.m; sourceTree = "<group>"; };
-		C52D10611CD1349B00D56B92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C534052C1CF1FA3C00FA6A1C /* BarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarChart.h; sourceTree = "<group>"; };
-		C534052D1CF1FA3C00FA6A1C /* BarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarChart.m; sourceTree = "<group>"; };
-		C53405301CF1FC4600FA6A1C /* CircularChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularChart.h; sourceTree = "<group>"; };
-		C53405311CF1FC4600FA6A1C /* CircularChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularChart.m; sourceTree = "<group>"; };
-		C54451561CEC9CE6006816AF /* DRScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRScrollView.h; sourceTree = "<group>"; };
-		C54451571CEC9CE6006816AF /* DRScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRScrollView.m; sourceTree = "<group>"; };
-		C5A3ECD21CDA2F5F004D4896 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		C5AED8481CD917410038F418 /* HorizontalStackBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalStackBarChart.h; sourceTree = "<group>"; };
-		C5AED8491CD917410038F418 /* HorizontalStackBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalStackBarChart.m; sourceTree = "<group>"; };
-		C5AED84B1CD917410038F418 /* LegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendView.h; sourceTree = "<group>"; };
-		C5AED84C1CD917410038F418 /* LegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendView.m; sourceTree = "<group>"; };
-		C5AED84E1CD917410038F418 /* LineGraphMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGraphMarker.h; sourceTree = "<group>"; };
-		C5AED84F1CD917410038F418 /* LineGraphMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineGraphMarker.m; sourceTree = "<group>"; };
-		C5AED8501CD917410038F418 /* MultiLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiLineGraphView.h; sourceTree = "<group>"; };
-		C5AED8511CD917410038F418 /* MultiLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiLineGraphView.m; sourceTree = "<group>"; };
-		C5AED8531CD917410038F418 /* PieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChart.h; sourceTree = "<group>"; };
-		C5AED8541CD917410038F418 /* PieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChart.m; sourceTree = "<group>"; };
-		C5AED8551CD917410038F418 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		C5AED8561CD917410038F418 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		C50CCB1F1D0EA0AB002C87B7 /* dr-Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "dr-Charts.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50CCB221D0EA0AB002C87B7 /* dr-Charts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dr-Charts.h"; sourceTree = "<group>"; };
+		C50CCB241D0EA0AB002C87B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C50CCB291D0EA0AB002C87B7 /* dr-ChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-ChartsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50CCB2E1D0EA0AB002C87B7 /* dr_ChartsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dr_ChartsTests.m; sourceTree = "<group>"; };
+		C50CCB301D0EA0AB002C87B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C50CCB3B1D0EA0D3002C87B7 /* BarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarChart.h; sourceTree = "<group>"; };
+		C50CCB3C1D0EA0D3002C87B7 /* BarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarChart.m; sourceTree = "<group>"; };
+		C50CCB3E1D0EA0D3002C87B7 /* CircularChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularChart.h; sourceTree = "<group>"; };
+		C50CCB3F1D0EA0D3002C87B7 /* CircularChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularChart.m; sourceTree = "<group>"; };
+		C50CCB401D0EA0D3002C87B7 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrGraphs.h; sourceTree = "<group>"; };
+		C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRScrollView.h; sourceTree = "<group>"; };
+		C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRScrollView.m; sourceTree = "<group>"; };
+		C50CCB451D0EA0D3002C87B7 /* HorizontalStackBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalStackBarChart.h; sourceTree = "<group>"; };
+		C50CCB461D0EA0D3002C87B7 /* HorizontalStackBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalStackBarChart.m; sourceTree = "<group>"; };
+		C50CCB481D0EA0D3002C87B7 /* LegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendView.h; sourceTree = "<group>"; };
+		C50CCB491D0EA0D3002C87B7 /* LegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendView.m; sourceTree = "<group>"; };
+		C50CCB4B1D0EA0D3002C87B7 /* LineGraphMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGraphMarker.h; sourceTree = "<group>"; };
+		C50CCB4C1D0EA0D3002C87B7 /* LineGraphMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineGraphMarker.m; sourceTree = "<group>"; };
+		C50CCB4D1D0EA0D3002C87B7 /* MultiLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiLineGraphView.h; sourceTree = "<group>"; };
+		C50CCB4E1D0EA0D3002C87B7 /* MultiLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiLineGraphView.m; sourceTree = "<group>"; };
+		C50CCB501D0EA0D3002C87B7 /* PieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChart.h; sourceTree = "<group>"; };
+		C50CCB511D0EA0D3002C87B7 /* PieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C52D10341CD1349B00D56B92 /* Frameworks */ = {
+		C50CCB1B1D0EA0AB002C87B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C52D104D1CD1349B00D56B92 /* Frameworks */ = {
+		C50CCB261D0EA0AB002C87B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C52D10581CD1349B00D56B92 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				C50CCB2A1D0EA0AB002C87B7 /* dr-Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C52D102E1CD1349B00D56B92 = {
+		C50CCB151D0EA0AB002C87B7 = {
 			isa = PBXGroup;
 			children = (
-				C52D10391CD1349B00D56B92 /* dr-charts */,
-				C52D10531CD1349B00D56B92 /* dr-chartsTests */,
-				C52D105E1CD1349B00D56B92 /* dr-chartsUITests */,
-				C52D10381CD1349B00D56B92 /* Products */,
+				C50CCB211D0EA0AB002C87B7 /* dr-Charts */,
+				C50CCB2D1D0EA0AB002C87B7 /* dr-ChartsTests */,
+				C50CCB201D0EA0AB002C87B7 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C52D10381CD1349B00D56B92 /* Products */ = {
+		C50CCB201D0EA0AB002C87B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C52D10371CD1349B00D56B92 /* dr-charts.app */,
-				C52D10501CD1349B00D56B92 /* dr-chartsTests.xctest */,
-				C52D105B1CD1349B00D56B92 /* dr-chartsUITests.xctest */,
+				C50CCB1F1D0EA0AB002C87B7 /* dr-Charts.framework */,
+				C50CCB291D0EA0AB002C87B7 /* dr-ChartsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C52D10391CD1349B00D56B92 /* dr-charts */ = {
+		C50CCB211D0EA0AB002C87B7 /* dr-Charts */ = {
 			isa = PBXGroup;
 			children = (
-				C5AED8461CD917410038F418 /* Classes */,
-				C5AED8551CD917410038F418 /* PageViewController.h */,
-				C5AED8561CD917410038F418 /* PageViewController.m */,
-				C52D103D1CD1349B00D56B92 /* AppDelegate.h */,
-				C52D103E1CD1349B00D56B92 /* AppDelegate.m */,
-				C52D10401CD1349B00D56B92 /* ViewController.h */,
-				C52D10411CD1349B00D56B92 /* ViewController.m */,
-				C5A3ECD21CDA2F5F004D4896 /* Launch Screen.storyboard */,
-				C52D10461CD1349B00D56B92 /* Assets.xcassets */,
-				C52D104B1CD1349B00D56B92 /* Info.plist */,
-				C52D103A1CD1349B00D56B92 /* Supporting Files */,
+				C50CCB391D0EA0D3002C87B7 /* Classes */,
+				C50CCB221D0EA0AB002C87B7 /* dr-Charts.h */,
+				C50CCB241D0EA0AB002C87B7 /* Info.plist */,
 			);
-			path = "dr-charts";
+			path = "dr-Charts";
 			sourceTree = "<group>";
 		};
-		C52D103A1CD1349B00D56B92 /* Supporting Files */ = {
+		C50CCB2D1D0EA0AB002C87B7 /* dr-ChartsTests */ = {
 			isa = PBXGroup;
 			children = (
-				C52D103B1CD1349B00D56B92 /* main.m */,
+				C50CCB2E1D0EA0AB002C87B7 /* dr_ChartsTests.m */,
+				C50CCB301D0EA0AB002C87B7 /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "dr-ChartsTests";
 			sourceTree = "<group>";
 		};
-		C52D10531CD1349B00D56B92 /* dr-chartsTests */ = {
+		C50CCB391D0EA0D3002C87B7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C52D10541CD1349B00D56B92 /* dr_chartsTests.m */,
-				C52D10561CD1349B00D56B92 /* Info.plist */,
-			);
-			path = "dr-chartsTests";
-			sourceTree = "<group>";
-		};
-		C52D105E1CD1349B00D56B92 /* dr-chartsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C52D105F1CD1349B00D56B92 /* dr_chartsUITests.m */,
-				C52D10611CD1349B00D56B92 /* Info.plist */,
-			);
-			path = "dr-chartsUITests";
-			sourceTree = "<group>";
-		};
-		C534052B1CF1FA3C00FA6A1C /* BarChart */ = {
-			isa = PBXGroup;
-			children = (
-				C534052C1CF1FA3C00FA6A1C /* BarChart.h */,
-				C534052D1CF1FA3C00FA6A1C /* BarChart.m */,
-			);
-			path = BarChart;
-			sourceTree = "<group>";
-		};
-		C534052E1CF1FA3C00FA6A1C /* CircularChart */ = {
-			isa = PBXGroup;
-			children = (
-				C53405301CF1FC4600FA6A1C /* CircularChart.h */,
-				C53405311CF1FC4600FA6A1C /* CircularChart.m */,
-			);
-			path = CircularChart;
-			sourceTree = "<group>";
-		};
-		C5AED8461CD917410038F418 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				C5AED84A1CD917410038F418 /* Legend */,
-				C534052B1CF1FA3C00FA6A1C /* BarChart */,
-				C534052E1CF1FA3C00FA6A1C /* CircularChart */,
-				C5AED84D1CD917410038F418 /* LineChart */,
-				C5AED8521CD917410038F418 /* PieChart */,
-				C5AED8471CD917410038F418 /* HorizontalStackChart */,
-				C54451561CEC9CE6006816AF /* DRScrollView.h */,
-				C54451571CEC9CE6006816AF /* DRScrollView.m */,
-				C51315BE1CF317BC0080ED26 /* Constants.h */,
-				C51315C01CF318B40080ED26 /* DrGraphs.h */,
+				C50CCB3A1D0EA0D3002C87B7 /* BarChart */,
+				C50CCB3D1D0EA0D3002C87B7 /* CircularChart */,
+				C50CCB401D0EA0D3002C87B7 /* Constants.h */,
+				C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */,
+				C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */,
+				C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */,
+				C50CCB441D0EA0D3002C87B7 /* HorizontalStackChart */,
+				C50CCB471D0EA0D3002C87B7 /* Legend */,
+				C50CCB4A1D0EA0D3002C87B7 /* LineChart */,
+				C50CCB4F1D0EA0D3002C87B7 /* PieChart */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		C5AED8471CD917410038F418 /* HorizontalStackChart */ = {
+		C50CCB3A1D0EA0D3002C87B7 /* BarChart */ = {
 			isa = PBXGroup;
 			children = (
-				C5AED8481CD917410038F418 /* HorizontalStackBarChart.h */,
-				C5AED8491CD917410038F418 /* HorizontalStackBarChart.m */,
+				C50CCB3B1D0EA0D3002C87B7 /* BarChart.h */,
+				C50CCB3C1D0EA0D3002C87B7 /* BarChart.m */,
+			);
+			path = BarChart;
+			sourceTree = "<group>";
+		};
+		C50CCB3D1D0EA0D3002C87B7 /* CircularChart */ = {
+			isa = PBXGroup;
+			children = (
+				C50CCB3E1D0EA0D3002C87B7 /* CircularChart.h */,
+				C50CCB3F1D0EA0D3002C87B7 /* CircularChart.m */,
+			);
+			path = CircularChart;
+			sourceTree = "<group>";
+		};
+		C50CCB441D0EA0D3002C87B7 /* HorizontalStackChart */ = {
+			isa = PBXGroup;
+			children = (
+				C50CCB451D0EA0D3002C87B7 /* HorizontalStackBarChart.h */,
+				C50CCB461D0EA0D3002C87B7 /* HorizontalStackBarChart.m */,
 			);
 			path = HorizontalStackChart;
 			sourceTree = "<group>";
 		};
-		C5AED84A1CD917410038F418 /* Legend */ = {
+		C50CCB471D0EA0D3002C87B7 /* Legend */ = {
 			isa = PBXGroup;
 			children = (
-				C5AED84B1CD917410038F418 /* LegendView.h */,
-				C5AED84C1CD917410038F418 /* LegendView.m */,
+				C50CCB481D0EA0D3002C87B7 /* LegendView.h */,
+				C50CCB491D0EA0D3002C87B7 /* LegendView.m */,
 			);
 			path = Legend;
 			sourceTree = "<group>";
 		};
-		C5AED84D1CD917410038F418 /* LineChart */ = {
+		C50CCB4A1D0EA0D3002C87B7 /* LineChart */ = {
 			isa = PBXGroup;
 			children = (
-				C5AED84E1CD917410038F418 /* LineGraphMarker.h */,
-				C5AED84F1CD917410038F418 /* LineGraphMarker.m */,
-				C5AED8501CD917410038F418 /* MultiLineGraphView.h */,
-				C5AED8511CD917410038F418 /* MultiLineGraphView.m */,
+				C50CCB4B1D0EA0D3002C87B7 /* LineGraphMarker.h */,
+				C50CCB4C1D0EA0D3002C87B7 /* LineGraphMarker.m */,
+				C50CCB4D1D0EA0D3002C87B7 /* MultiLineGraphView.h */,
+				C50CCB4E1D0EA0D3002C87B7 /* MultiLineGraphView.m */,
 			);
 			path = LineChart;
 			sourceTree = "<group>";
 		};
-		C5AED8521CD917410038F418 /* PieChart */ = {
+		C50CCB4F1D0EA0D3002C87B7 /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
-				C5AED8531CD917410038F418 /* PieChart.h */,
-				C5AED8541CD917410038F418 /* PieChart.m */,
+				C50CCB501D0EA0D3002C87B7 /* PieChart.h */,
+				C50CCB511D0EA0D3002C87B7 /* PieChart.m */,
 			);
 			path = PieChart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		C50CCB1C1D0EA0AB002C87B7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C50CCB601D0EA0D3002C87B7 /* MultiLineGraphView.h in Headers */,
+				C50CCB581D0EA0D3002C87B7 /* DRScrollView.h in Headers */,
+				C50CCB5E1D0EA0D3002C87B7 /* LineGraphMarker.h in Headers */,
+				C50CCB541D0EA0D3002C87B7 /* CircularChart.h in Headers */,
+				C50CCB571D0EA0D3002C87B7 /* DrGraphs.h in Headers */,
+				C50CCB621D0EA0D3002C87B7 /* PieChart.h in Headers */,
+				C50CCB231D0EA0AB002C87B7 /* dr-Charts.h in Headers */,
+				C50CCB5C1D0EA0D3002C87B7 /* LegendView.h in Headers */,
+				C50CCB5A1D0EA0D3002C87B7 /* HorizontalStackBarChart.h in Headers */,
+				C50CCB561D0EA0D3002C87B7 /* Constants.h in Headers */,
+				C50CCB521D0EA0D3002C87B7 /* BarChart.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		C52D10361CD1349B00D56B92 /* dr-charts */ = {
+		C50CCB1E1D0EA0AB002C87B7 /* dr-Charts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C52D10641CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-charts" */;
+			buildConfigurationList = C50CCB331D0EA0AB002C87B7 /* Build configuration list for PBXNativeTarget "dr-Charts" */;
 			buildPhases = (
-				C52D10331CD1349B00D56B92 /* Sources */,
-				C52D10341CD1349B00D56B92 /* Frameworks */,
-				C52D10351CD1349B00D56B92 /* Resources */,
+				C50CCB1A1D0EA0AB002C87B7 /* Sources */,
+				C50CCB1B1D0EA0AB002C87B7 /* Frameworks */,
+				C50CCB1C1D0EA0AB002C87B7 /* Headers */,
+				C50CCB1D1D0EA0AB002C87B7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "dr-charts";
-			productName = "dr-charts";
-			productReference = C52D10371CD1349B00D56B92 /* dr-charts.app */;
-			productType = "com.apple.product-type.application";
+			name = "dr-Charts";
+			productName = "dr-Charts";
+			productReference = C50CCB1F1D0EA0AB002C87B7 /* dr-Charts.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		C52D104F1CD1349B00D56B92 /* dr-chartsTests */ = {
+		C50CCB281D0EA0AB002C87B7 /* dr-ChartsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C52D10671CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-chartsTests" */;
+			buildConfigurationList = C50CCB361D0EA0AB002C87B7 /* Build configuration list for PBXNativeTarget "dr-ChartsTests" */;
 			buildPhases = (
-				C52D104C1CD1349B00D56B92 /* Sources */,
-				C52D104D1CD1349B00D56B92 /* Frameworks */,
-				C52D104E1CD1349B00D56B92 /* Resources */,
+				C50CCB251D0EA0AB002C87B7 /* Sources */,
+				C50CCB261D0EA0AB002C87B7 /* Frameworks */,
+				C50CCB271D0EA0AB002C87B7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C52D10521CD1349B00D56B92 /* PBXTargetDependency */,
+				C50CCB2C1D0EA0AB002C87B7 /* PBXTargetDependency */,
 			);
-			name = "dr-chartsTests";
-			productName = "dr-chartsTests";
-			productReference = C52D10501CD1349B00D56B92 /* dr-chartsTests.xctest */;
+			name = "dr-ChartsTests";
+			productName = "dr-ChartsTests";
+			productReference = C50CCB291D0EA0AB002C87B7 /* dr-ChartsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		C52D105A1CD1349B00D56B92 /* dr-chartsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C52D106A1CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-chartsUITests" */;
-			buildPhases = (
-				C52D10571CD1349B00D56B92 /* Sources */,
-				C52D10581CD1349B00D56B92 /* Frameworks */,
-				C52D10591CD1349B00D56B92 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C52D105D1CD1349B00D56B92 /* PBXTargetDependency */,
-			);
-			name = "dr-chartsUITests";
-			productName = "dr-chartsUITests";
-			productReference = C52D105B1CD1349B00D56B92 /* dr-chartsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C52D102F1CD1349B00D56B92 /* Project object */ = {
+		C50CCB161D0EA0AB002C87B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Product;
 				TargetAttributes = {
-					C52D10361CD1349B00D56B92 = {
-						CreatedOnToolsVersion = 7.3;
+					C50CCB1E1D0EA0AB002C87B7 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
-					C52D104F1CD1349B00D56B92 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = C52D10361CD1349B00D56B92;
-					};
-					C52D105A1CD1349B00D56B92 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = C52D10361CD1349B00D56B92;
+					C50CCB281D0EA0AB002C87B7 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
-			buildConfigurationList = C52D10321CD1349B00D56B92 /* Build configuration list for PBXProject "dr-charts" */;
+			buildConfigurationList = C50CCB191D0EA0AB002C87B7 /* Build configuration list for PBXProject "dr-Charts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
-			mainGroup = C52D102E1CD1349B00D56B92;
-			productRefGroup = C52D10381CD1349B00D56B92 /* Products */;
+			mainGroup = C50CCB151D0EA0AB002C87B7;
+			productRefGroup = C50CCB201D0EA0AB002C87B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C52D10361CD1349B00D56B92 /* dr-charts */,
-				C52D104F1CD1349B00D56B92 /* dr-chartsTests */,
-				C52D105A1CD1349B00D56B92 /* dr-chartsUITests */,
+				C50CCB1E1D0EA0AB002C87B7 /* dr-Charts */,
+				C50CCB281D0EA0AB002C87B7 /* dr-ChartsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C52D10351CD1349B00D56B92 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C5A3ECD31CDA2F5F004D4896 /* Launch Screen.storyboard in Resources */,
-				C52D10471CD1349B00D56B92 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C52D104E1CD1349B00D56B92 /* Resources */ = {
+		C50CCB1D1D0EA0AB002C87B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C52D10591CD1349B00D56B92 /* Resources */ = {
+		C50CCB271D0EA0AB002C87B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -367,58 +309,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C52D10331CD1349B00D56B92 /* Sources */ = {
+		C50CCB1A1D0EA0AB002C87B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C52D10421CD1349B00D56B92 /* ViewController.m in Sources */,
-				C52D103F1CD1349B00D56B92 /* AppDelegate.m in Sources */,
-				C5AED85C1CD917410038F418 /* PageViewController.m in Sources */,
-				C54451581CEC9CE6006816AF /* DRScrollView.m in Sources */,
-				C5AED8581CD917410038F418 /* LegendView.m in Sources */,
-				C52D103C1CD1349B00D56B92 /* main.m in Sources */,
-				C5AED8591CD917410038F418 /* LineGraphMarker.m in Sources */,
-				C534052F1CF1FA3C00FA6A1C /* BarChart.m in Sources */,
-				C5AED85B1CD917410038F418 /* PieChart.m in Sources */,
-				C53405321CF1FC4600FA6A1C /* CircularChart.m in Sources */,
-				C5AED8571CD917410038F418 /* HorizontalStackBarChart.m in Sources */,
-				C5AED85A1CD917410038F418 /* MultiLineGraphView.m in Sources */,
+				C50CCB531D0EA0D3002C87B7 /* BarChart.m in Sources */,
+				C50CCB591D0EA0D3002C87B7 /* DRScrollView.m in Sources */,
+				C50CCB5D1D0EA0D3002C87B7 /* LegendView.m in Sources */,
+				C50CCB551D0EA0D3002C87B7 /* CircularChart.m in Sources */,
+				C50CCB5F1D0EA0D3002C87B7 /* LineGraphMarker.m in Sources */,
+				C50CCB631D0EA0D3002C87B7 /* PieChart.m in Sources */,
+				C50CCB5B1D0EA0D3002C87B7 /* HorizontalStackBarChart.m in Sources */,
+				C50CCB611D0EA0D3002C87B7 /* MultiLineGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C52D104C1CD1349B00D56B92 /* Sources */ = {
+		C50CCB251D0EA0AB002C87B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C52D10551CD1349B00D56B92 /* dr_chartsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C52D10571CD1349B00D56B92 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C52D10601CD1349B00D56B92 /* dr_chartsUITests.m in Sources */,
+				C50CCB2F1D0EA0AB002C87B7 /* dr_ChartsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C52D10521CD1349B00D56B92 /* PBXTargetDependency */ = {
+		C50CCB2C1D0EA0AB002C87B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C52D10361CD1349B00D56B92 /* dr-charts */;
-			targetProxy = C52D10511CD1349B00D56B92 /* PBXContainerItemProxy */;
-		};
-		C52D105D1CD1349B00D56B92 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C52D10361CD1349B00D56B92 /* dr-charts */;
-			targetProxy = C52D105C1CD1349B00D56B92 /* PBXContainerItemProxy */;
+			target = C50CCB1E1D0EA0AB002C87B7 /* dr-Charts */;
+			targetProxy = C50CCB2B1D0EA0AB002C87B7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		C52D10621CD1349B00D56B92 /* Debug */ = {
+		C50CCB311D0EA0AB002C87B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -438,6 +363,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -460,10 +386,12 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		C52D10631CD1349B00D56B92 /* Release */ = {
+		C50CCB321D0EA0AB002C87B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -483,6 +411,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -499,121 +428,94 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		C52D10651CD1349B00D56B92 /* Debug */ = {
+		C50CCB341D0EA0AB002C87B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "dr-charts/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-charts";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "dr-Charts/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-Charts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C50CCB351D0EA0AB002C87B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "dr-Charts/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-Charts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C50CCB371D0EA0AB002C87B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "dr-ChartsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		C52D10661CD1349B00D56B92 /* Release */ = {
+		C50CCB381D0EA0AB002C87B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = "dr-charts/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-charts";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		C52D10681CD1349B00D56B92 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "dr-chartsTests/Info.plist";
+				INFOPLIST_FILE = "dr-ChartsTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-chartsTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-charts.app/dr-charts";
-			};
-			name = Debug;
-		};
-		C52D10691CD1349B00D56B92 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "dr-chartsTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-chartsTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-charts.app/dr-charts";
-			};
-			name = Release;
-		};
-		C52D106B1CD1349B00D56B92 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "dr-chartsUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-chartsUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "dr-charts";
-			};
-			name = Debug;
-		};
-		C52D106C1CD1349B00D56B92 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "dr-chartsUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-chartsUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "dr-charts";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C52D10321CD1349B00D56B92 /* Build configuration list for PBXProject "dr-charts" */ = {
+		C50CCB191D0EA0AB002C87B7 /* Build configuration list for PBXProject "dr-Charts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C52D10621CD1349B00D56B92 /* Debug */,
-				C52D10631CD1349B00D56B92 /* Release */,
+				C50CCB311D0EA0AB002C87B7 /* Debug */,
+				C50CCB321D0EA0AB002C87B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C52D10641CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-charts" */ = {
+		C50CCB331D0EA0AB002C87B7 /* Build configuration list for PBXNativeTarget "dr-Charts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C52D10651CD1349B00D56B92 /* Debug */,
-				C52D10661CD1349B00D56B92 /* Release */,
+				C50CCB341D0EA0AB002C87B7 /* Debug */,
+				C50CCB351D0EA0AB002C87B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C52D10671CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-chartsTests" */ = {
+		C50CCB361D0EA0AB002C87B7 /* Build configuration list for PBXNativeTarget "dr-ChartsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C52D10681CD1349B00D56B92 /* Debug */,
-				C52D10691CD1349B00D56B92 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C52D106A1CD1349B00D56B92 /* Build configuration list for PBXNativeTarget "dr-chartsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C52D106B1CD1349B00D56B92 /* Debug */,
-				C52D106C1CD1349B00D56B92 /* Release */,
+				C50CCB371D0EA0AB002C87B7 /* Debug */,
+				C50CCB381D0EA0AB002C87B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C52D102F1CD1349B00D56B92 /* Project object */;
+	rootObject = C50CCB161D0EA0AB002C87B7 /* Project object */;
 }

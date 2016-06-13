@@ -161,7 +161,8 @@
                 touchedLayer = shapeLayer;
 
                 NSString *data = [shapeLayer valueForKey:@"data"];
-                [self showMarkerWithData:data];
+                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
+                [self showMarkerWithData:dataPercentage];
                 if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
                     [self.delegate didTapOnCircularChartWithValue:data];
                 }
