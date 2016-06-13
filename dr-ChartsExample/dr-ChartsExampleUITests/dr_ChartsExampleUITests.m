@@ -1,18 +1,18 @@
 //
-//  dr_chartsUITests.m
-//  dr-chartsUITests
+//  dr_ChartsExampleUITests.m
+//  dr-ChartsExampleUITests
 //
-//  Created by DHIREN THIRANI on 4/27/16.
+//  Created by DHIREN THIRANI on 6/13/16.
 //  Copyright © 2016 Product. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface dr_chartsUITests : XCTestCase
+@interface dr_ChartsExampleUITests : XCTestCase
 
 @end
 
-@implementation dr_chartsUITests
+@implementation dr_ChartsExampleUITests
 
 - (void)setUp {
     [super setUp];

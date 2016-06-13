@@ -1,6 +1,6 @@
 //
-//  dr_ChartsTests.m
-//  dr-ChartsTests
+//  dr_ChartsExampleTests.m
+//  dr-ChartsExampleTests
 //
 //  Created by DHIREN THIRANI on 6/13/16.
 //  Copyright © 2016 Product. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface dr_ChartsTests : XCTestCase
+@interface dr_ChartsExampleTests : XCTestCase
 
 @end
 
-@implementation dr_ChartsTests
+@implementation dr_ChartsExampleTests
 
 - (void)setUp {
     [super setUp];

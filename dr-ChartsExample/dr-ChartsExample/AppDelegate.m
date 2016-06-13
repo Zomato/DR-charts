@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  dr-charts
+//  dr-ChartsExample
 //
-//  Created by DHIREN THIRANI on 4/27/16.
+//  Created by DHIREN THIRANI on 6/13/16.
 //  Copyright © 2016 Product. All rights reserved.
 //
 
@@ -25,7 +25,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     

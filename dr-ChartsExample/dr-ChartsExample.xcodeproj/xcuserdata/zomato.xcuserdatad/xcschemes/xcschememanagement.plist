@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>dr-Charts.xcscheme</key>
+		<key>dr-ChartsExample.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C50CCB1E1D0EA0AB002C87B7</key>
+		<key>C5DBE65B1D0EEB6A00785337</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C50CCB281D0EA0AB002C87B7</key>
+		<key>C5DBE6741D0EEB6A00785337</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5DBE67F1D0EEB6A00785337</key>
 		<dict>
 			<key>primary</key>
 			<true/>
