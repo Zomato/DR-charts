@@ -156,7 +156,8 @@
                 touchedLayer = shapeLayer;
                 
                 NSString *data = [shapeLayer valueForKey:@"data"];
-                [self showMarkerWithData:data withTouchedPoint:touchPoint];
+                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/totalCount)*100];
+                [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
                 if ([self.delegate respondsToSelector:@selector(didTapOnHorizontalStackBarChartWithValue:)]) {
                     [self.delegate didTapOnHorizontalStackBarChartWithValue:data];
                 }

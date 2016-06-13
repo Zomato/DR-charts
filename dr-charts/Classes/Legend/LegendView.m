@@ -64,7 +64,7 @@
             
             if (width >= WIDTH(self)) {
                 height = height + LEGEND_VIEW + INNER_PADDING;
-                width = 0;
+                width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
                 x = 0;
             }
             
@@ -128,7 +128,7 @@
             
             if (width >= viewWidth) {
                 height = height + LEGEND_VIEW + INNER_PADDING;
-                width = 0;
+                width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
                 x = 0;
             }
         }
