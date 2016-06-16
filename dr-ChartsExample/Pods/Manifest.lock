@@ -1,0 +1,14 @@
+PODS:
+  - dr-charts (1.0)
+
+DEPENDENCIES:
+  - dr-charts (from `../../DR-charts`)
+
+EXTERNAL SOURCES:
+  dr-charts:
+    :path: ../../DR-charts
+
+SPEC CHECKSUMS:
+  dr-charts: 4addecfbcc5bdb8e02ca1d9132f770b744b30baa
+
+COCOAPODS: 0.39.0
