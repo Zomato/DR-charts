@@ -23,7 +23,22 @@ Easy to use, customizable and interactive charts library for iOS in Objective-C
 ![LineChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/LineChart.gif) ![BarChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/BarChart.gif) ![PieChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/PieChart.gif) ![HorizontalStackChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/HorizontalStackChart.gif) ![CircularChart](https://raw.githubusercontent.com/Zomato/DR-charts/master/art/CircularChart.gif) 
 
 
-####CHART TYPE
+## Installation
+
+[CocoaPods](http://cocoapods.org) is the recommended way to add Dr-Charts to your project.
+
+#### Using CocoaPod
+Simply add the following line to your Podfile and install the pod. 
+```
+pod 'dr-charts', :git => 'https://github.com/Zomato/DR-charts.git'
+```
+Where "dr-charts" is the name of the library.
+
+#### The Old School Way
+The simplest way to add _Dr-Charts_ to your project is to drag and drop the /Classes folder into your Xcode project. It is also recommended to rename the /Classes folder to something more descriptive (i.e. 'Dr-Charts').
+
+
+#### CHART TYPE
 ##### Line Chart
 
 This is an example of Line Chart:

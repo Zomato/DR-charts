@@ -228,7 +228,7 @@
 
 #pragma mark PieChartDataSource
 - (NSInteger)numberOfValuesForPieChart{
-    return 5;
+    return 8;
 }
 
 - (UIColor *)colorForValueInPieChartWithIndex:(NSInteger)lineNumber{
