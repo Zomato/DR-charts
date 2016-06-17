@@ -60,10 +60,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        self.xAxisArray = [[NSMutableArray alloc] init];
-        self.lineDataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-
         self.drawGridY = TRUE;
         self.drawGridX = TRUE;
         
@@ -82,16 +78,16 @@
         self.legendViewType = LegendTypeVertical;
         self.showMarker = TRUE;
         
-        widht = WIDTH(self);
         scaleHeight = 0;
         lastScale = 1;
     }
     return self;
 }
 
-- (void)drawGraph{
-    height = HEIGHT(self) - 2*INNER_PADDING;
-    scaleHeight = height;
+- (void)getDataFromDataSource{
+    self.xAxisArray = [[NSMutableArray alloc] init];
+    self.lineDataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
     
     self.xAxisArray = [self.dataSource xDataForLineToBePlotted];
     
@@ -116,6 +112,15 @@
         [data setLegendColor:lineData.lineColor];
         [self.legendArray addObject:data];
     }
+}
+
+- (void)drawGraph{
+    widht = WIDTH(self);
+
+    height = HEIGHT(self) - 2*INNER_PADDING;
+    scaleHeight = height;
+    
+    [self getDataFromDataSource];
     
     if (self.showLegend) {
         height = HEIGHT(self) - [LegendView getLegendHeightWithLegendArray:self.legendArray legendType:self.legendViewType withFont:self.textFont width:WIDTH(self) - 2*SIDE_PADDING] - 2*INNER_PADDING;
@@ -225,7 +230,7 @@
         int stepCount = 5;
         
         if (widht > WIDTH(self)) {
-            stepCount = ceil(stepCount * lastScale);
+            stepCount = floor(stepCount * lastScale);
         }
     
         NSInteger count = [self.xAxisArray count] - 1;
@@ -515,6 +520,13 @@
     [self.graphScrollView setContentSize:CGSizeMake(widht, scaleHeight)];
     
     [self setNeedsDisplay];
+}
+
+- (void)reloadGraph{
+    [self.graphScrollView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawGraph];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
