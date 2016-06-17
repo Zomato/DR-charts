@@ -27,6 +27,8 @@ typedef enum{
 
 + (CGFloat)getLegendHeightWithLegendArray:(NSMutableArray *)legendArray legendType:(LegendType)type withFont:(UIFont *)font width:(CGFloat)viewWidth;
 
++ (NSMutableAttributedString *)getAttributedString:(NSString *)tinyText withFont:(UIFont *)font;
+
 @end
 
 @interface LegendDataRenderer : NSObject

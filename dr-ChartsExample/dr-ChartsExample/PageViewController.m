@@ -83,7 +83,7 @@
 - (NSMutableArray *)xDataForLineToBePlotted{
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < 30; i++) {
-        [array addObject:[NSString stringWithFormat:@"%d", 1000 + i]];
+        [array addObject:[NSString stringWithFormat:@"%d june", i]];
     }
     return array;
 }

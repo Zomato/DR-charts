@@ -218,7 +218,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) -(y + OFFSET_Y + 10), OFFSET_X - 5, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) - (y + size.height + 10), size.width , size.height) drawGrid:drawGrid];
     }
 }
 
@@ -230,7 +233,7 @@
         int stepCount = 5;
         
         if (widht > WIDTH(self)) {
-            stepCount = floor(stepCount * lastScale);
+            stepCount = ceil(stepCount * lastScale);
         }
     
         NSInteger count = [self.xAxisArray count] - 1;
@@ -278,7 +281,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:[self.xAxisArray objectAtIndex:index] withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - OFFSET_Y + 5, size.width, size.height) drawGrid:drawGrid];
     }
 }
 
