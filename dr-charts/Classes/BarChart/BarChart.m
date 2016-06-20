@@ -57,6 +57,8 @@
         
         self.showLegend = TRUE;
         self.legendViewType = LegendTypeVertical;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
@@ -339,27 +341,29 @@
 
 #pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.graphView];
-    
-    if(CGRectContainsPoint(self.graphView.frame, touchPoint)){
-        CALayer *layer = [self.graphView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if ([shapeLayer isKindOfClass:[CAShapeLayer class]]){
-                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, NO)) {
-                    [shapeLayer setOpacity:1.0f];
-                    [shapeLayer setShadowRadius:10.0f];
-                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                    [shapeLayer setShadowOpacity:1.0f];
-                    
-                    touchedLayer = shapeLayer;
-
-                    NSString *data = [shapeLayer valueForKey:@"data"];
-                    [self showMarkerWithData:data];
-
-                    if ([self.delegate respondsToSelector:@selector(didTapOnBarChartWithValue:)]) {
-                        [self.delegate didTapOnBarChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.graphView];
+        
+        if(CGRectContainsPoint(self.graphView.frame, touchPoint)){
+            CALayer *layer = [self.graphView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if ([shapeLayer isKindOfClass:[CAShapeLayer class]]){
+                    if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, NO)) {
+                        [shapeLayer setOpacity:1.0f];
+                        [shapeLayer setShadowRadius:10.0f];
+                        [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                        [shapeLayer setShadowOpacity:1.0f];
+                        
+                        touchedLayer = shapeLayer;
+                        
+                        NSString *data = [shapeLayer valueForKey:@"data"];
+                        [self showMarkerWithData:data];
+                        
+                        if ([self.delegate respondsToSelector:@selector(didTapOnBarChartWithValue:)]) {
+                            [self.delegate didTapOnBarChartWithValue:data];
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -367,21 +371,25 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-
-    [dataShapeLayer removeFromSuperlayer];
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
 }
 
 #pragma mark Show Marker

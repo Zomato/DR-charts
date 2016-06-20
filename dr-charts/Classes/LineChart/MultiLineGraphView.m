@@ -511,27 +511,31 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint pointTouched = [touch locationInView:self.graphView];
-
-    CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
-    if (CGRectContainsPoint(graphFrame, pointTouched) && self.showMarker) {
-        [self hideMarker];
-        NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
-        [self findValueForTouch:touch];
+    if (self.showMarker) {
+        UITouch *touch = [touches anyObject];
+        CGPoint pointTouched = [touch locationInView:self.graphView];
+        
+        CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
+        if (CGRectContainsPoint(graphFrame, pointTouched)) {
+            [self hideMarker];
+            NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
+            [self findValueForTouch:touch];
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint pointTouched = [touch locationInView:self];
-    
-    [self hideMarker];
-    
-    CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
-    if (CGRectContainsPoint(graphFrame, pointTouched) && self.showMarker) {
-        NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
-        [self findValueForTouch:touch];
+    if (self.showMarker) {
+        UITouch *touch = [touches anyObject];
+        CGPoint pointTouched = [touch locationInView:self];
+        
+        [self hideMarker];
+        
+        CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
+        if (CGRectContainsPoint(graphFrame, pointTouched)) {
+            NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
+            [self findValueForTouch:touch];
+        }
     }
 }
 
@@ -548,8 +552,8 @@
 }
 
 - (void)zoomGraph{
-    
     [self.graphView removeFromSuperview];
+    
     self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, scaleHeight)];
     [self.graphView setUserInteractionEnabled:YES];
     

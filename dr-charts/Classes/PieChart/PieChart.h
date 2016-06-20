@@ -53,6 +53,9 @@
 //Set LEGEND TYPE Horizontal or Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
 
+//show MARKER when interacting with graph
+@property (nonatomic) BOOL showMarker; //Default is TRUE
+
 //To draw the graph
 - (void)drawPieChart;
 

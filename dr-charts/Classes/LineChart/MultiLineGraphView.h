@@ -78,6 +78,7 @@ typedef enum {
 
 //show MARKER when interacting with graph
 @property (nonatomic) BOOL showMarker; //Default is TRUE
+
 //to set marker property
 @property (nonatomic, strong) UIColor *markerColor; //Default is [UIColor orangeColor]
 @property (nonatomic, strong) UIColor *markerTextColor; //Default is [UIColor whiteColor]

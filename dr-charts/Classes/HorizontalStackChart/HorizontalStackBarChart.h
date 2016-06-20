@@ -51,6 +51,9 @@
 //show Value on Bar Slice with the graph
 @property (nonatomic) BOOL showValueOnBarSlice; //Default is TRUE
 
+//show MARKER when interacting with graph
+@property (nonatomic) BOOL showMarker; //Default is TRUE
+
 //To draw the graph
 - (void)drawStackChart;
 

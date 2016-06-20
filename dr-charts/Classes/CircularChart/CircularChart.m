@@ -53,6 +53,8 @@
 
         self.legendViewType = LegendTypeVertical;
         self.showLegend = TRUE;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
@@ -155,46 +157,52 @@
 
 #pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
-    
-    if(CGRectContainsPoint(self.circularChartView.frame, touchPoint)){
-        CALayer *layer = [self.circularChartView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
-                [shapeLayer setShadowRadius:10.0f];
-                [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                [shapeLayer setShadowOpacity:1.0f];
-                
-                touchedLayer = shapeLayer;
-
-                NSString *data = [shapeLayer valueForKey:@"data"];
-                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
-                [self showMarkerWithData:dataPercentage];
-                if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
-                    [self.delegate didTapOnCircularChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
+        
+        if(CGRectContainsPoint(self.circularChartView.frame, touchPoint)){
+            CALayer *layer = [self.circularChartView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
+                    [shapeLayer setShadowRadius:10.0f];
+                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                    [shapeLayer setShadowOpacity:1.0f];
+                    
+                    touchedLayer = shapeLayer;
+                    
+                    NSString *data = [shapeLayer valueForKey:@"data"];
+                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
+                    [self showMarkerWithData:dataPercentage];
+                    if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
+                        [self.delegate didTapOnCircularChartWithValue:data];
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
         }
     }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
+    if (self.showMarker) {
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
 }
 
 #pragma mark Show Marker

@@ -62,6 +62,9 @@
 //Set type of legend Horizontal or Vertical, default value is Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical
 
+//show MARKER when interacting with graph
+@property (nonatomic) BOOL showMarker; //Default is TRUE
+
 //To draw the graph
 - (void)drawBarGraph;
 
