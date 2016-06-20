@@ -13,8 +13,8 @@
 		C5DBE6671D0EEB6A00785337 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6661D0EEB6A00785337 /* ViewController.m */; };
 		C5DBE66C1D0EEB6A00785337 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5DBE66B1D0EEB6A00785337 /* Assets.xcassets */; };
 		C5DBE66F1D0EEB6A00785337 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5DBE66D1D0EEB6A00785337 /* LaunchScreen.storyboard */; };
-		C5DBE67A1D0EEB6A00785337 /* dr_ChartsExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6791D0EEB6A00785337 /* dr_ChartsExampleTests.m */; };
-		C5DBE6851D0EEB6A00785337 /* dr_ChartsExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6841D0EEB6A00785337 /* dr_ChartsExampleUITests.m */; };
+		C5DBE67A1D0EEB6A00785337 /* drChartsExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6791D0EEB6A00785337 /* drChartsExampleTests.m */; };
+		C5DBE6851D0EEB6A00785337 /* drChartsExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6841D0EEB6A00785337 /* drChartsExampleUITests.m */; };
 		C5DBE6941D0EEEF600785337 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBE6931D0EEEF600785337 /* PageViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 /* Begin PBXFileReference section */
 		083457D687AFE8DFE2489EA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F7E9558C3BE16D59CE6C55 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		C5DBE65C1D0EEB6A00785337 /* dr-ChartsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dr-ChartsExample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5DBE65C1D0EEB6A00785337 /* drChartsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drChartsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5DBE6601D0EEB6A00785337 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C5DBE6621D0EEB6A00785337 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C5DBE6631D0EEB6A00785337 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -47,11 +47,11 @@
 		C5DBE66B1D0EEB6A00785337 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C5DBE66E1D0EEB6A00785337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C5DBE6701D0EEB6A00785337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C5DBE6751D0EEB6A00785337 /* dr-ChartsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-ChartsExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5DBE6791D0EEB6A00785337 /* dr_ChartsExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dr_ChartsExampleTests.m; sourceTree = "<group>"; };
+		C5DBE6751D0EEB6A00785337 /* drChartsExample.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drChartsExample.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5DBE6791D0EEB6A00785337 /* drChartsExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = drChartsExampleTests.m; sourceTree = "<group>"; };
 		C5DBE67B1D0EEB6A00785337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C5DBE6801D0EEB6A00785337 /* dr-ChartsExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-ChartsExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5DBE6841D0EEB6A00785337 /* dr_ChartsExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dr_ChartsExampleUITests.m; sourceTree = "<group>"; };
+		C5DBE6801D0EEB6A00785337 /* drChartsExample.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drChartsExample.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5DBE6841D0EEB6A00785337 /* drChartsExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = drChartsExampleUITests.m; sourceTree = "<group>"; };
 		C5DBE6861D0EEB6A00785337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5DBE6921D0EEEF600785337 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		C5DBE6931D0EEEF600785337 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
@@ -96,9 +96,9 @@
 		C5DBE6531D0EEB6A00785337 = {
 			isa = PBXGroup;
 			children = (
-				C5DBE65E1D0EEB6A00785337 /* dr-ChartsExample */,
-				C5DBE6781D0EEB6A00785337 /* dr-ChartsExampleTests */,
-				C5DBE6831D0EEB6A00785337 /* dr-ChartsExampleUITests */,
+				C5DBE65E1D0EEB6A00785337 /* drChartsExample */,
+				C5DBE6781D0EEB6A00785337 /* drChartsExampleTests */,
+				C5DBE6831D0EEB6A00785337 /* drChartsExampleUITests */,
 				C5DBE65D1D0EEB6A00785337 /* Products */,
 				3A3DBB6BEE1B5562D107BF31 /* Pods */,
 				D49BD5B8BED3157AF57ADB8A /* Frameworks */,
@@ -108,14 +108,14 @@
 		C5DBE65D1D0EEB6A00785337 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C5DBE65C1D0EEB6A00785337 /* dr-ChartsExample.app */,
-				C5DBE6751D0EEB6A00785337 /* dr-ChartsExampleTests.xctest */,
-				C5DBE6801D0EEB6A00785337 /* dr-ChartsExampleUITests.xctest */,
+				C5DBE65C1D0EEB6A00785337 /* drChartsExample.app */,
+				C5DBE6751D0EEB6A00785337 /* drChartsExample.xctest */,
+				C5DBE6801D0EEB6A00785337 /* drChartsExample.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C5DBE65E1D0EEB6A00785337 /* dr-ChartsExample */ = {
+		C5DBE65E1D0EEB6A00785337 /* drChartsExample */ = {
 			isa = PBXGroup;
 			children = (
 				C5DBE6921D0EEEF600785337 /* PageViewController.h */,
@@ -129,6 +129,7 @@
 				C5DBE6701D0EEB6A00785337 /* Info.plist */,
 				C5DBE65F1D0EEB6A00785337 /* Supporting Files */,
 			);
+			name = drChartsExample;
 			path = "dr-ChartsExample";
 			sourceTree = "<group>";
 		};
@@ -140,21 +141,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C5DBE6781D0EEB6A00785337 /* dr-ChartsExampleTests */ = {
+		C5DBE6781D0EEB6A00785337 /* drChartsExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				C5DBE6791D0EEB6A00785337 /* dr_ChartsExampleTests.m */,
+				C5DBE6791D0EEB6A00785337 /* drChartsExampleTests.m */,
 				C5DBE67B1D0EEB6A00785337 /* Info.plist */,
 			);
+			name = drChartsExampleTests;
 			path = "dr-ChartsExampleTests";
 			sourceTree = "<group>";
 		};
-		C5DBE6831D0EEB6A00785337 /* dr-ChartsExampleUITests */ = {
+		C5DBE6831D0EEB6A00785337 /* drChartsExampleUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C5DBE6841D0EEB6A00785337 /* dr_ChartsExampleUITests.m */,
+				C5DBE6841D0EEB6A00785337 /* drChartsExampleUITests.m */,
 				C5DBE6861D0EEB6A00785337 /* Info.plist */,
 			);
+			name = drChartsExampleUITests;
 			path = "dr-ChartsExampleUITests";
 			sourceTree = "<group>";
 		};
@@ -169,9 +172,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C5DBE65B1D0EEB6A00785337 /* dr-ChartsExample */ = {
+		C5DBE65B1D0EEB6A00785337 /* drChartsExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C5DBE6891D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExample" */;
+			buildConfigurationList = C5DBE6891D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExample" */;
 			buildPhases = (
 				24E7E5BC48707BEE784B058B /* Check Pods Manifest.lock */,
 				C5DBE6581D0EEB6A00785337 /* Sources */,
@@ -184,14 +187,14 @@
 			);
 			dependencies = (
 			);
-			name = "dr-ChartsExample";
+			name = drChartsExample;
 			productName = "dr-ChartsExample";
-			productReference = C5DBE65C1D0EEB6A00785337 /* dr-ChartsExample.app */;
+			productReference = C5DBE65C1D0EEB6A00785337 /* drChartsExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C5DBE6741D0EEB6A00785337 /* dr-ChartsExampleTests */ = {
+		C5DBE6741D0EEB6A00785337 /* drChartsExampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C5DBE68C1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExampleTests" */;
+			buildConfigurationList = C5DBE68C1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExampleTests" */;
 			buildPhases = (
 				C5DBE6711D0EEB6A00785337 /* Sources */,
 				C5DBE6721D0EEB6A00785337 /* Frameworks */,
@@ -202,14 +205,14 @@
 			dependencies = (
 				C5DBE6771D0EEB6A00785337 /* PBXTargetDependency */,
 			);
-			name = "dr-ChartsExampleTests";
+			name = drChartsExampleTests;
 			productName = "dr-ChartsExampleTests";
-			productReference = C5DBE6751D0EEB6A00785337 /* dr-ChartsExampleTests.xctest */;
+			productReference = C5DBE6751D0EEB6A00785337 /* drChartsExample.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C5DBE67F1D0EEB6A00785337 /* dr-ChartsExampleUITests */ = {
+		C5DBE67F1D0EEB6A00785337 /* drChartsExampleUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C5DBE68F1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExampleUITests" */;
+			buildConfigurationList = C5DBE68F1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExampleUITests" */;
 			buildPhases = (
 				C5DBE67C1D0EEB6A00785337 /* Sources */,
 				C5DBE67D1D0EEB6A00785337 /* Frameworks */,
@@ -220,9 +223,9 @@
 			dependencies = (
 				C5DBE6821D0EEB6A00785337 /* PBXTargetDependency */,
 			);
-			name = "dr-ChartsExampleUITests";
+			name = drChartsExampleUITests;
 			productName = "dr-ChartsExampleUITests";
-			productReference = C5DBE6801D0EEB6A00785337 /* dr-ChartsExampleUITests.xctest */;
+			productReference = C5DBE6801D0EEB6A00785337 /* drChartsExample.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -247,7 +250,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C5DBE6571D0EEB6A00785337 /* Build configuration list for PBXProject "dr-ChartsExample" */;
+			buildConfigurationList = C5DBE6571D0EEB6A00785337 /* Build configuration list for PBXProject "drChartsExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -260,9 +263,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C5DBE65B1D0EEB6A00785337 /* dr-ChartsExample */,
-				C5DBE6741D0EEB6A00785337 /* dr-ChartsExampleTests */,
-				C5DBE67F1D0EEB6A00785337 /* dr-ChartsExampleUITests */,
+				C5DBE65B1D0EEB6A00785337 /* drChartsExample */,
+				C5DBE6741D0EEB6A00785337 /* drChartsExampleTests */,
+				C5DBE67F1D0EEB6A00785337 /* drChartsExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -357,7 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5DBE67A1D0EEB6A00785337 /* dr_ChartsExampleTests.m in Sources */,
+				C5DBE67A1D0EEB6A00785337 /* drChartsExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5DBE6851D0EEB6A00785337 /* dr_ChartsExampleUITests.m in Sources */,
+				C5DBE6851D0EEB6A00785337 /* drChartsExampleUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,12 +377,12 @@
 /* Begin PBXTargetDependency section */
 		C5DBE6771D0EEB6A00785337 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C5DBE65B1D0EEB6A00785337 /* dr-ChartsExample */;
+			target = C5DBE65B1D0EEB6A00785337 /* drChartsExample */;
 			targetProxy = C5DBE6761D0EEB6A00785337 /* PBXContainerItemProxy */;
 		};
 		C5DBE6821D0EEB6A00785337 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C5DBE65B1D0EEB6A00785337 /* dr-ChartsExample */;
+			target = C5DBE65B1D0EEB6A00785337 /* drChartsExample */;
 			targetProxy = C5DBE6811D0EEB6A00785337 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -488,7 +491,7 @@
 				INFOPLIST_FILE = "dr-ChartsExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExample";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = drChartsExample;
 			};
 			name = Debug;
 		};
@@ -500,7 +503,7 @@
 				INFOPLIST_FILE = "dr-ChartsExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExample";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = drChartsExample;
 			};
 			name = Release;
 		};
@@ -511,8 +514,8 @@
 				INFOPLIST_FILE = "dr-ChartsExampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-ChartsExample.app/dr-ChartsExample";
+				PRODUCT_NAME = drChartsExample;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drChartsExample.app/drChartsExample";
 			};
 			name = Debug;
 		};
@@ -523,8 +526,8 @@
 				INFOPLIST_FILE = "dr-ChartsExampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-ChartsExample.app/dr-ChartsExample";
+				PRODUCT_NAME = drChartsExample;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drChartsExample.app/drChartsExample";
 			};
 			name = Release;
 		};
@@ -534,7 +537,7 @@
 				INFOPLIST_FILE = "dr-ChartsExampleUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = drChartsExample;
 				TEST_TARGET_NAME = "dr-ChartsExample";
 			};
 			name = Debug;
@@ -545,7 +548,7 @@
 				INFOPLIST_FILE = "dr-ChartsExampleUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.dr-ChartsExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = drChartsExample;
 				TEST_TARGET_NAME = "dr-ChartsExample";
 			};
 			name = Release;
@@ -553,7 +556,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C5DBE6571D0EEB6A00785337 /* Build configuration list for PBXProject "dr-ChartsExample" */ = {
+		C5DBE6571D0EEB6A00785337 /* Build configuration list for PBXProject "drChartsExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5DBE6871D0EEB6A00785337 /* Debug */,
@@ -562,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C5DBE6891D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExample" */ = {
+		C5DBE6891D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5DBE68A1D0EEB6A00785337 /* Debug */,
@@ -571,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C5DBE68C1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExampleTests" */ = {
+		C5DBE68C1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5DBE68D1D0EEB6A00785337 /* Debug */,
@@ -580,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C5DBE68F1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "dr-ChartsExampleUITests" */ = {
+		C5DBE68F1D0EEB6A00785337 /* Build configuration list for PBXNativeTarget "drChartsExampleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5DBE6901D0EEB6A00785337 /* Debug */,

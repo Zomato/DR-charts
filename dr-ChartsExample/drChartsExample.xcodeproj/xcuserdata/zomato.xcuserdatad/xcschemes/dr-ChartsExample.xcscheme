@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
-               BuildableName = "dr-ChartsExample.app"
-               BlueprintName = "dr-ChartsExample"
-               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+               BuildableName = "drChartsExample.app"
+               BlueprintName = "drChartsExample"
+               ReferencedContainer = "container:drChartsExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5DBE6741D0EEB6A00785337"
-               BuildableName = "dr-ChartsExampleTests.xctest"
-               BlueprintName = "dr-ChartsExampleTests"
-               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+               BuildableName = "drChartsExample.xctest"
+               BlueprintName = "drChartsExampleTests"
+               ReferencedContainer = "container:drChartsExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5DBE67F1D0EEB6A00785337"
-               BuildableName = "dr-ChartsExampleUITests.xctest"
-               BlueprintName = "dr-ChartsExampleUITests"
-               ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+               BuildableName = "drChartsExample.xctest"
+               BlueprintName = "drChartsExampleUITests"
+               ReferencedContainer = "container:drChartsExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
-            BuildableName = "dr-ChartsExample.app"
-            BlueprintName = "dr-ChartsExample"
-            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+            BuildableName = "drChartsExample.app"
+            BlueprintName = "drChartsExample"
+            ReferencedContainer = "container:drChartsExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
-            BuildableName = "dr-ChartsExample.app"
-            BlueprintName = "dr-ChartsExample"
-            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+            BuildableName = "drChartsExample.app"
+            BlueprintName = "drChartsExample"
+            ReferencedContainer = "container:drChartsExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5DBE65B1D0EEB6A00785337"
-            BuildableName = "dr-ChartsExample.app"
-            BlueprintName = "dr-ChartsExample"
-            ReferencedContainer = "container:dr-ChartsExample.xcodeproj">
+            BuildableName = "drChartsExample.app"
+            BlueprintName = "drChartsExample"
+            ReferencedContainer = "container:drChartsExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:dr-ChartsExample.xcodeproj">
+      location = "group:/Users/zomato/Documents/Dhiren/dr-charts/DR-charts/dr-ChartsExample/drChartsExample.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
