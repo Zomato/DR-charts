@@ -39,9 +39,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.dataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-
         self.textFontSize = 12;
         self.textFont = [UIFont systemFontOfSize:self.textFontSize];
         self.textColor = [UIColor blackColor];
@@ -52,7 +49,10 @@
     return self;
 }
 
-- (void) drawStackChart{
+- (void)getDataFromDataSource{
+    self.dataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
+    
     for (int i=0; i<[self.dataSource numberOfValuesForStackChart]; i++) {
         HorizontalStackBarData *chartData = [[HorizontalStackBarData alloc] init];
         [chartData setColor:[self.dataSource colorForValueInStackChartWithIndex:i]];
@@ -67,6 +67,10 @@
         [data setLegendColor:chartData.color];
         [self.legendArray addObject:data];
     }
+}
+
+- (void) drawStackChart{
+    [self getDataFromDataSource];
     
     height = HEIGHT(self) - 2*INNER_PADDING;
     
@@ -80,6 +84,7 @@
     }
 }
 
+#pragma mark CreateStackChart
 - (void) createStackChart{
     self.barView = [[UIView alloc] initWithFrame:CGRectMake(SIDE_PADDING, INNER_PADDING, WIDTH(self) - 2*SIDE_PADDING, height)];
     
@@ -90,6 +95,7 @@
     [self addSubview:self.barView];
 }
 
+#pragma mark DrawPathWithValue
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -141,6 +147,7 @@
     return path;
 }
 
+#pragma mark TouchEvents
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     CGPoint touchPoint = [[touches anyObject] locationInView:self.barView];
     
@@ -168,6 +175,25 @@
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+    
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+    
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+#pragma mark ShowMarker
 - (void)showMarkerWithData:(NSString *)text withTouchedPoint:(CGPoint)point{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
@@ -179,7 +205,10 @@
         viewX = self.barView.center.x - 100;
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, rect.origin.y, 100, 2*INNER_PADDING) cornerRadius:3];
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, rect.origin.y, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
@@ -209,24 +238,7 @@
     [self.barView.layer addSublayer:dataShapeLayer];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark CreateLegend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.barView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -235,6 +247,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark ReloadGraph
+- (void)reloadHorizontalStackGraph{
+    [self.barView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawStackChart];
 }
 
 @end
