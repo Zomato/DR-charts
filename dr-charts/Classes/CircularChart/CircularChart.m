@@ -202,7 +202,7 @@
     NSAttributedString *attrString = [LegendView getAttributedString:[NSString stringWithFormat:@"%@",text] withFont:self.textFont];
     CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.circularChartView.center.x, self.circularChartView.center.y, size.width + 2*SIDE_PADDING, size.height) cornerRadius:3];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.circularChartView.center.x - (size.width + 2*SIDE_PADDING)/2, self.circularChartView.center.y - size.height/2, size.width + 2*SIDE_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
