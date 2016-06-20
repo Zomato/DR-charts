@@ -378,7 +378,7 @@
 - (void)showMarkerWithData:(NSString *)text{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
-    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    NSAttributedString *attrString = [LegendView getAttributedString:[NSString stringWithFormat:@"%@",text] withFont:self.textFont];
     CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.origin.y - size.height, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];

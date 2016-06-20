@@ -347,7 +347,7 @@
     [chart setDataSource:self];
     [chart setDelegate:self];
     [chart setLegendViewType:LegendTypeHorizontal];
-    [chart drawPieChart];
+    [chart drawCircularChart];
     [self.view addSubview:chart];
 }
 
