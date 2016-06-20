@@ -53,7 +53,8 @@
     return self;
 }
 
-- (void)drawPieChart{
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
     for(int i = 0; i <[self.dataSource numberOfValuesForPieChart] ; i++){
         PieChartDataRenderer *data = [[PieChartDataRenderer alloc] init];
         [data setColor:[self.dataSource colorForValueInPieChartWithIndex:i]];
@@ -69,6 +70,11 @@
         [legendData setLegendColor:data.color];
         [self.legendArray addObject:legendData];
     }
+}
+
+#pragma mark Draw Pie Chart
+- (void)drawPieChart{
+    [self getDataFromDataSource];
     
     height = HEIGHT(self) - 2*INNER_PADDING;
     
@@ -97,6 +103,7 @@
     }
 }
 
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -172,16 +179,38 @@
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+    
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+    
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text withTouchedPoint:(CGPoint)point{
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
     CGFloat viewX = 0;
     if (point.x <= self.pieView.center.x) {
         viewX = self.pieView.center.x;
     }
     else{
-        viewX = self.pieView.center.x - 100;
+        viewX = self.pieView.center.x - (size.width + 2*SIDE_PADDING);
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, self.pieView.center.y, 100, 2*INNER_PADDING) cornerRadius:3];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, self.pieView.center.y, size.width + 2*SIDE_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
@@ -211,25 +240,7 @@
     [self.pieView.layer addSublayer:dataShapeLayer];
 }
 
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.pieView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -238,6 +249,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark Reload Chart
+- (void)reloadPieChart{
+    [self.pieView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawPieChart];
 }
 
 @end

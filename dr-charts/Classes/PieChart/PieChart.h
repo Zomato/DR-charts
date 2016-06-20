@@ -49,6 +49,10 @@
 //Set LEGEND TYPE Horizontal or Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
 
+//To draw the graph
 - (void)drawPieChart;
+
+//To reload data on the graph
+- (void)reloadPieChart;
 
 @end
