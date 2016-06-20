@@ -45,10 +45,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        self.xAxisArray = [[NSMutableArray alloc] init];
-        self.barDataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-        
         self.drawGridY = TRUE;
         self.drawGridX = TRUE;
         
@@ -65,9 +61,11 @@
     return self;
 }
 
-- (void)drawBarGraph{
-    widht = WIDTH(self);
-    height = HEIGHT(self) - 2*INNER_PADDING;
+#pragma mark GetData
+- (void)getDataFromDataSource{
+    self.xAxisArray = [[NSMutableArray alloc] init];
+    self.barDataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
     
     stepX = 0;
     
@@ -90,6 +88,14 @@
     }
     
     stepX += 20;
+}
+
+#pragma mark DrawBarGraph
+- (void)drawBarGraph{
+    widht = WIDTH(self);
+    height = HEIGHT(self) - 2*INNER_PADDING;
+    
+    [self getDataFromDataSource];
     
     widht = (stepX * self.xAxisArray.count) + (OFFSET_X * 2);
     
@@ -134,6 +140,7 @@
     [self setNeedsDisplay];
 }
 
+#pragma mark Create Line & Bar
 - (void)createYAxisLine{
     float minY = 0.0;
     float maxY = 0.0;
@@ -349,13 +356,35 @@
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [touchedLayer setOpacity:0.7f];
+    [touchedLayer setShadowRadius:0.0f];
+    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+    [touchedLayer setShadowOpacity:0.0f];
+    
+    [dataShapeLayer removeFromSuperlayer];
+}
+
+#pragma mark ShowMarker
 - (void)showMarkerWithData:(NSString *)text{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.origin.y - 2*INNER_PADDING, rect.size.width, 2*INNER_PADDING) cornerRadius:3];
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.origin.y - size.height, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
-
+    
     dataShapeLayer = [[CAShapeLayer alloc] init];
     [dataShapeLayer setPath:[path CGPath]];
     [dataShapeLayer setBackgroundColor:[[UIColor whiteColor] CGColor]];
@@ -382,24 +411,7 @@
     [self.graphView.layer addSublayer:dataShapeLayer];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark CreateLegend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.graphView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -408,6 +420,13 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+- (void)reloadBarGraph{
+    [self.graphScrollView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawBarGraph];
 }
 
 @end

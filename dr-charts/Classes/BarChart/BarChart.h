@@ -62,6 +62,10 @@
 //Set type of legend Horizontal or Vertical, default value is Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical
 
+//To draw the graph
 - (void)drawBarGraph;
+
+//To reload data on the graph
+- (void)reloadBarGraph;
 
 @end
