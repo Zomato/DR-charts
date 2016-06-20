@@ -191,7 +191,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) -(y + OFFSET_Y + 10), OFFSET_X - 5, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(INNER_PADDING, HEIGHT(self.graphView) -(y + OFFSET_Y + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 
@@ -218,12 +221,19 @@
                 drawGrid = FALSE;
             }
         }
+        
+        NSString *text = @"";
         if (i == maxStep) {
-            [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:@"" textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+            text = @"";
         }
         else{
-            [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+            text = [self.xAxisArray objectAtIndex:index];
         }
+        
+        NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:text textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 

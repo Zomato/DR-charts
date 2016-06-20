@@ -224,7 +224,7 @@
         NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
         CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) - (y + size.height + 10), size.width , size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(INNER_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
     }
 }
 
@@ -287,7 +287,7 @@
         NSAttributedString *attrString = [LegendView getAttributedString:[self.xAxisArray objectAtIndex:index] withFont:self.textFont];
         CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - OFFSET_Y + 5, size.width, size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 
