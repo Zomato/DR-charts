@@ -84,6 +84,7 @@
     return self;
 }
 
+#pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
     self.xAxisArray = [[NSMutableArray alloc] init];
     self.lineDataArray = [[NSMutableArray alloc] init];
@@ -114,6 +115,7 @@
     }
 }
 
+#pragma mark Draw Graph
 - (void)drawGraph{
     widht = WIDTH(self);
 
@@ -164,6 +166,7 @@
 
 }
 
+#pragma Draw Shape Layer
 - (void)createYAxisLine{
     float minY = 0.0;
     float maxY = 0.0;
@@ -447,6 +450,7 @@
     }
 }
 
+#pragma mark Create Marker
 - (void)createMarker{
     self.marker = [[LineGraphMarker alloc] init];
     [self.marker setHidden:YES];
@@ -506,35 +510,6 @@
     }
 }
 
-- (void)zoomGraph{
-    
-    [self.graphView removeFromSuperview];
-    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, scaleHeight)];
-    [self.graphView setUserInteractionEnabled:YES];
-    
-    [self createYAxisLine];
-    [self createXAxisLine];
-    [self createGraph];
-    
-    [self.graphView setNeedsDisplay];
-    
-    [self.graphScrollView addSubview:self.graphView];
-    
-    [self.graphScrollView setNeedsDisplay];
-    
-    [self addSubview:self.graphScrollView];
-    [self.graphScrollView setContentSize:CGSizeMake(widht, scaleHeight)];
-    
-    [self setNeedsDisplay];
-}
-
-- (void)reloadGraph{
-    [self.graphScrollView removeFromSuperview];
-    [self.legendView removeFromSuperview];
-    
-    [self drawGraph];
-}
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     CGPoint pointTouched = [touch locationInView:self.graphView];
@@ -570,6 +545,28 @@
     if (self.showMarker) {
         [self hideMarker];
     }
+}
+
+- (void)zoomGraph{
+    
+    [self.graphView removeFromSuperview];
+    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, scaleHeight)];
+    [self.graphView setUserInteractionEnabled:YES];
+    
+    [self createYAxisLine];
+    [self createXAxisLine];
+    [self createGraph];
+    
+    [self.graphView setNeedsDisplay];
+    
+    [self.graphScrollView addSubview:self.graphView];
+    
+    [self.graphScrollView setNeedsDisplay];
+    
+    [self addSubview:self.graphScrollView];
+    [self.graphScrollView setContentSize:CGSizeMake(widht, scaleHeight)];
+    
+    [self setNeedsDisplay];
 }
 
 #pragma mark Touch Action on a touch in a graph
@@ -716,6 +713,14 @@
     [shapeLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
     [shapeLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.graphView.layer addSublayer:shapeLayer];
+}
+
+#pragma Reload Graph
+- (void)reloadGraph{
+    [self.graphScrollView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawGraph];
 }
 
 @end

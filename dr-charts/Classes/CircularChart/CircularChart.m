@@ -76,7 +76,7 @@
     }
 }
 
-#pragma mark Draw Pie Chart
+#pragma mark Draw Graph
 - (void)drawCircularChart{
     [self getDataFromDataSource];
     
@@ -112,7 +112,7 @@
     [self setNeedsDisplay];
 }
 
-#pragma mark Draw Path
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -153,7 +153,7 @@
     return path;
 }
 
-#pragma mark Touch On Chart
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
     
@@ -197,7 +197,7 @@
     [dataShapeLayer removeFromSuperlayer];
 }
 
-#pragma mark show marker
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text{
     NSAttributedString *attrString = [LegendView getAttributedString:[NSString stringWithFormat:@"%@",text] withFont:self.textFont];
     CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
@@ -232,7 +232,7 @@
     [self.circularChartView.layer addSublayer:dataShapeLayer];
 }
 
-#pragma mark CreateLegend
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.circularChartView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -243,7 +243,7 @@
     [self addSubview:self.legendView];
 }
 
-#pragma mark ReloadCircularChart
+#pragma mark Reload Graph
 - (void)reloadCircularChart{
     [self.circularChartView removeFromSuperview];
     [self.legendView removeFromSuperview];

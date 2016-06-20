@@ -49,6 +49,7 @@
     return self;
 }
 
+#pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
     self.dataArray = [[NSMutableArray alloc] init];
     self.legendArray = [[NSMutableArray alloc] init];
@@ -69,6 +70,7 @@
     }
 }
 
+#pragma mark Draw Graph
 - (void) drawStackChart{
     [self getDataFromDataSource];
     
@@ -84,7 +86,6 @@
     }
 }
 
-#pragma mark CreateStackChart
 - (void) createStackChart{
     self.barView = [[UIView alloc] initWithFrame:CGRectMake(SIDE_PADDING, INNER_PADDING, WIDTH(self) - 2*SIDE_PADDING, height)];
     
@@ -95,7 +96,7 @@
     [self addSubview:self.barView];
 }
 
-#pragma mark DrawPathWithValue
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -147,7 +148,7 @@
     return path;
 }
 
-#pragma mark TouchEvents
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     CGPoint touchPoint = [[touches anyObject] locationInView:self.barView];
     
@@ -193,21 +194,21 @@
     [dataShapeLayer removeFromSuperlayer];
 }
 
-#pragma mark ShowMarker
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text withTouchedPoint:(CGPoint)point{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
     CGFloat viewX = 0;
     if (point.x <= self.barView.center.x) {
         viewX = self.barView.center.x;
     }
     else{
-        viewX = self.barView.center.x - 100;
+        viewX = self.barView.center.x - size.width + 2*INNER_PADDING;
     }
     
-    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
-    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, rect.origin.y, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
@@ -238,7 +239,7 @@
     [self.barView.layer addSublayer:dataShapeLayer];
 }
 
-#pragma mark CreateLegend
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.barView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -249,7 +250,7 @@
     [self addSubview:self.legendView];
 }
 
-#pragma mark ReloadGraph
+#pragma mark Reload Graph
 - (void)reloadHorizontalStackGraph{
     [self.barView removeFromSuperview];
     [self.legendView removeFromSuperview];

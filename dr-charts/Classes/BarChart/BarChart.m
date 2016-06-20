@@ -61,7 +61,7 @@
     return self;
 }
 
-#pragma mark GetData
+#pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
     self.xAxisArray = [[NSMutableArray alloc] init];
     self.barDataArray = [[NSMutableArray alloc] init];
@@ -90,7 +90,7 @@
     stepX += 20;
 }
 
-#pragma mark DrawBarGraph
+#pragma mark Draw Graph
 - (void)drawBarGraph{
     widht = WIDTH(self);
     height = HEIGHT(self) - 2*INNER_PADDING;
@@ -140,7 +140,7 @@
     [self setNeedsDisplay];
 }
 
-#pragma mark Create Line & Bar
+#pragma mark Draw Shape Layer
 - (void)createYAxisLine{
     float minY = 0.0;
     float maxY = 0.0;
@@ -327,7 +327,7 @@
     return path;
 }
 
-#pragma mark Touch Action in a graph
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     CGPoint touchPoint = [[touches anyObject] locationInView:self.graphView];
     
@@ -374,7 +374,7 @@
     [dataShapeLayer removeFromSuperlayer];
 }
 
-#pragma mark ShowMarker
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
@@ -411,7 +411,7 @@
     [self.graphView.layer addSublayer:dataShapeLayer];
 }
 
-#pragma mark CreateLegend
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.graphView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -422,6 +422,7 @@
     [self addSubview:self.legendView];
 }
 
+#pragma mark Reload Graph
 - (void)reloadBarGraph{
     [self.graphScrollView removeFromSuperview];
     [self.legendView removeFromSuperview];

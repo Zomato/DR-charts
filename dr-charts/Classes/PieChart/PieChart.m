@@ -72,7 +72,7 @@
     }
 }
 
-#pragma mark Draw Pie Chart
+#pragma mark Draw Graph
 - (void)drawPieChart{
     [self getDataFromDataSource];
     
