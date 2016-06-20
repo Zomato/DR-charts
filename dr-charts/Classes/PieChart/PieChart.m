@@ -49,6 +49,8 @@
         
         self.legendViewType = LegendTypeVertical;
         self.showLegend = TRUE;
+        
+        self.showValueOnPieSlice = TRUE;
     }
     return self;
 }
@@ -130,6 +132,26 @@
     [group setRemovedOnCompletion:FALSE];
     [group setBeginTime:CACurrentMediaTime()];
     [group setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    
+    NSString *text = [NSString stringWithFormat:@"%0.2f%%",(value/self.totalCount.floatValue)*100];
+    CGRect layerRect = CGPathGetBoundingBox(shapeLayer.path);
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    if (size.height < layerRect.size.height/2 && size.width < layerRect.size.width/2 && self.showValueOnPieSlice) {
+        CATextLayer *textLayer = [[CATextLayer alloc] init];
+        [textLayer setFont:CFBridgingRetain(self.textFont.fontName)];
+        [textLayer setFontSize:self.textFontSize];
+        [textLayer setFrame:CGRectMake(layerRect.origin.x + layerRect.size.width/2 - size.width/2, layerRect.origin.y + layerRect.size.height/2 - size.height/2, size.width, size.height)];
+        [textLayer setString:[NSString stringWithFormat:@"%@",text]];
+        [textLayer setAlignmentMode:kCAAlignmentCenter];
+        [textLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+        [textLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
+        [textLayer setShouldRasterize:YES];
+        [textLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
+        [textLayer setContentsScale:[[UIScreen mainScreen] scale]];
+        [shapeLayer addSublayer:textLayer];
+    }
     
     [shapeLayer addAnimation:group forKey:@"animate"];
     

@@ -46,6 +46,10 @@
 
 //show LEGEND with the graph
 @property (nonatomic) BOOL showLegend; //Default is TRUE
+
+//show Value on Pie Slice with the graph
+@property (nonatomic) BOOL showValueOnPieSlice; //Default is TRUE
+
 //Set LEGEND TYPE Horizontal or Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
 
