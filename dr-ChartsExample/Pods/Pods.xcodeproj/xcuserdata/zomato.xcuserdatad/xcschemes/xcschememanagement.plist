@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>dr-charts.xcscheme</key>
+		<key>drCharts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5A6F2A89B4DD30E86E65EA00238F1EDE</key>
+		<key>DD8C42A75BD9A6C341AFD36DB341FF4B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6817C87DCA7FB5A124E78EEFBFCF03BC</key>
+		<key>E260616B145712D39B0385F43E3A16D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

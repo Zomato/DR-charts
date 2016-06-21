@@ -217,7 +217,7 @@
    limitations under the License.
 </string>
 			<key>Title</key>
-			<string>dr-charts</string>
+			<string>drCharts</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

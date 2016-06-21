@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-  s.name         = "dr-charts"
+  s.name         = "drCharts"
   s.version      = "1.1"
   s.summary      = "dr-Charts is a powerful & easy way to use charts in Objective-C for iOS."
 
