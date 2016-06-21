@@ -49,11 +49,16 @@
         
         self.legendViewType = LegendTypeVertical;
         self.showLegend = TRUE;
+        
+        self.showValueOnPieSlice = TRUE;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
 
-- (void)drawPieChart{
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
     for(int i = 0; i <[self.dataSource numberOfValuesForPieChart] ; i++){
         PieChartDataRenderer *data = [[PieChartDataRenderer alloc] init];
         [data setColor:[self.dataSource colorForValueInPieChartWithIndex:i]];
@@ -69,6 +74,11 @@
         [legendData setLegendColor:data.color];
         [self.legendArray addObject:legendData];
     }
+}
+
+#pragma mark Draw Graph
+- (void)drawPieChart{
+    [self getDataFromDataSource];
     
     height = HEIGHT(self) - 2*INNER_PADDING;
     
@@ -97,6 +107,7 @@
     }
 }
 
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -124,6 +135,26 @@
     [group setBeginTime:CACurrentMediaTime()];
     [group setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
+    NSString *text = [NSString stringWithFormat:@"%0.2f%%",(value/self.totalCount.floatValue)*100];
+    CGRect layerRect = CGPathGetBoundingBox(shapeLayer.path);
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    if (size.height < layerRect.size.height/2 && size.width < layerRect.size.width/2 && self.showValueOnPieSlice) {
+        CATextLayer *textLayer = [[CATextLayer alloc] init];
+        [textLayer setFont:CFBridgingRetain(self.textFont.fontName)];
+        [textLayer setFontSize:self.textFontSize];
+        [textLayer setFrame:CGRectMake(layerRect.origin.x + layerRect.size.width/2 - size.width/2, layerRect.origin.y + layerRect.size.height/2 - size.height/2, size.width, size.height)];
+        [textLayer setString:[NSString stringWithFormat:@"%@",text]];
+        [textLayer setAlignmentMode:kCAAlignmentCenter];
+        [textLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+        [textLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
+        [textLayer setShouldRasterize:YES];
+        [textLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
+        [textLayer setContentsScale:[[UIScreen mainScreen] scale]];
+        [shapeLayer addSublayer:textLayer];
+    }
+    
     [shapeLayer addAnimation:group forKey:@"animate"];
     
     [CATransaction commit];
@@ -146,42 +177,70 @@
 
 #pragma mark Touch Action in a graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.pieView];
-
-    if(CGRectContainsPoint(self.pieView.frame, touchPoint)){
-        CALayer *layer = [self.pieView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
-                [shapeLayer setOpacity:1.0f];
-                [shapeLayer setShadowRadius:10.0f];
-                [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                [shapeLayer setShadowOpacity:1.0f];
-                
-                touchedLayer = shapeLayer;
-
-                NSString *data = [shapeLayer valueForKey:@"data"];
-                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
-                [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
-                if ([self.delegate respondsToSelector:@selector(didTapOnPieChartWithValue:)]) {
-                    [self.delegate didTapOnPieChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.pieView];
+        
+        if(CGRectContainsPoint(self.pieView.frame, touchPoint)){
+            CALayer *layer = [self.pieView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
+                    [shapeLayer setOpacity:1.0f];
+                    [shapeLayer setShadowRadius:10.0f];
+                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                    [shapeLayer setShadowOpacity:1.0f];
+                    
+                    touchedLayer = shapeLayer;
+                    
+                    NSString *data = [shapeLayer valueForKey:@"data"];
+                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
+                    [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
+                    if ([self.delegate respondsToSelector:@selector(didTapOnPieChartWithValue:)]) {
+                        [self.delegate didTapOnPieChartWithValue:data];
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
         }
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text withTouchedPoint:(CGPoint)point{
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
     CGFloat viewX = 0;
     if (point.x <= self.pieView.center.x) {
         viewX = self.pieView.center.x;
     }
     else{
-        viewX = self.pieView.center.x - 100;
+        viewX = self.pieView.center.x - (size.width + 2*SIDE_PADDING);
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, self.pieView.center.y, 100, 2*INNER_PADDING) cornerRadius:3];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, self.pieView.center.y, size.width + 2*SIDE_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
@@ -211,25 +270,7 @@
     [self.pieView.layer addSublayer:dataShapeLayer];
 }
 
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.pieView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -238,6 +279,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark Reload Chart
+- (void)reloadPieChart{
+    [self.pieView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawPieChart];
 }
 
 @end

@@ -59,12 +59,11 @@
             NSAttributedString *attrString = [LegendView getAttributedString:legendData.legendText withFont:self.font];
             CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-            x = width;
-            width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
+            width += LEGEND_VIEW + size.width + INNER_PADDING + OFFSET_PADDING;
             
             if (width >= WIDTH(self)) {
-                height = height + LEGEND_VIEW + INNER_PADDING;
-                width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
+                height += LEGEND_VIEW + INNER_PADDING;
+                width = LEGEND_VIEW + size.width + INNER_PADDING + OFFSET_PADDING;
                 x = 0;
             }
             
@@ -78,6 +77,8 @@
             [label setAttributedText:attrString];
             [label setFrame:CGRectMake(AFTER(view) + OFFSET_PADDING, height, size.width, size.height)];
             [self addSubview:label];
+            
+            x = width;
         }
         height += LEGEND_VIEW + INNER_PADDING;
 
@@ -124,11 +125,11 @@
             CGSize size = [attrString boundingRectWithSize:CGSizeMake(viewWidth - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
             
             x = width;
-            width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
+            width += LEGEND_VIEW + size.width + INNER_PADDING + OFFSET_PADDING;
             
             if (width >= viewWidth) {
                 height = height + LEGEND_VIEW + INNER_PADDING;
-                width += LEGEND_VIEW + size.width + 2*INNER_PADDING;
+                width = LEGEND_VIEW + size.width + INNER_PADDING + OFFSET_PADDING;
                 x = 0;
             }
         }

@@ -60,10 +60,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        self.xAxisArray = [[NSMutableArray alloc] init];
-        self.lineDataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-
         self.drawGridY = TRUE;
         self.drawGridX = TRUE;
         
@@ -82,16 +78,17 @@
         self.legendViewType = LegendTypeVertical;
         self.showMarker = TRUE;
         
-        widht = WIDTH(self);
         scaleHeight = 0;
         lastScale = 1;
     }
     return self;
 }
 
-- (void)drawGraph{
-    height = HEIGHT(self) - 2*INNER_PADDING;
-    scaleHeight = height;
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
+    self.xAxisArray = [[NSMutableArray alloc] init];
+    self.lineDataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
     
     self.xAxisArray = [self.dataSource xDataForLineToBePlotted];
     
@@ -116,6 +113,16 @@
         [data setLegendColor:lineData.lineColor];
         [self.legendArray addObject:data];
     }
+}
+
+#pragma mark Draw Graph
+- (void)drawGraph{
+    widht = WIDTH(self);
+
+    height = HEIGHT(self) - 2*INNER_PADDING;
+    scaleHeight = height;
+    
+    [self getDataFromDataSource];
     
     if (self.showLegend) {
         height = HEIGHT(self) - [LegendView getLegendHeightWithLegendArray:self.legendArray legendType:self.legendViewType withFont:self.textFont width:WIDTH(self) - 2*SIDE_PADDING] - 2*INNER_PADDING;
@@ -159,6 +166,7 @@
 
 }
 
+#pragma Draw Shape Layer
 - (void)createYAxisLine{
     float minY = 0.0;
     float maxY = 0.0;
@@ -213,7 +221,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) -(y + OFFSET_Y + 10), OFFSET_X - 5, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(INNER_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
     }
 }
 
@@ -273,7 +284,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:[self.xAxisArray objectAtIndex:index] withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 
@@ -436,6 +450,7 @@
     }
 }
 
+#pragma mark Create Marker
 - (void)createMarker{
     self.marker = [[LineGraphMarker alloc] init];
     [self.marker setHidden:YES];
@@ -495,9 +510,50 @@
     }
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        UITouch *touch = [touches anyObject];
+        CGPoint pointTouched = [touch locationInView:self.graphView];
+        
+        CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
+        if (CGRectContainsPoint(graphFrame, pointTouched)) {
+            [self hideMarker];
+            NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
+            [self findValueForTouch:touch];
+        }
+    }
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        UITouch *touch = [touches anyObject];
+        CGPoint pointTouched = [touch locationInView:self];
+        
+        [self hideMarker];
+        
+        CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
+        if (CGRectContainsPoint(graphFrame, pointTouched)) {
+            NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
+            [self findValueForTouch:touch];
+        }
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [self hideMarker];
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [self hideMarker];
+    }
+}
+
 - (void)zoomGraph{
-    
     [self.graphView removeFromSuperview];
+    
     self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, scaleHeight)];
     [self.graphView setUserInteractionEnabled:YES];
     
@@ -515,43 +571,6 @@
     [self.graphScrollView setContentSize:CGSizeMake(widht, scaleHeight)];
     
     [self setNeedsDisplay];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint pointTouched = [touch locationInView:self.graphView];
-
-    CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
-    if (CGRectContainsPoint(graphFrame, pointTouched) && self.showMarker) {
-        [self hideMarker];
-        NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
-        [self findValueForTouch:touch];
-    }
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint pointTouched = [touch locationInView:self];
-    
-    [self hideMarker];
-    
-    CGRect graphFrame = CGRectMake(OFFSET_X, OFFSET_Y, WIDTH(self.graphView) - 2*OFFSET_X, HEIGHT(self.graphView) - 2*OFFSET_Y);
-    if (CGRectContainsPoint(graphFrame, pointTouched) && self.showMarker) {
-        NSLog(@"%f, %f",pointTouched.x, pointTouched.y);
-        [self findValueForTouch:touch];
-    }
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
-        [self hideMarker];
-    }
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
-        [self hideMarker];
-    }
 }
 
 #pragma mark Touch Action on a touch in a graph
@@ -698,6 +717,14 @@
     [shapeLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
     [shapeLayer setContentsScale:[[UIScreen mainScreen] scale]];
     [self.graphView.layer addSublayer:shapeLayer];
+}
+
+#pragma Reload Graph
+- (void)reloadGraph{
+    [self.graphScrollView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawGraph];
 }
 
 @end

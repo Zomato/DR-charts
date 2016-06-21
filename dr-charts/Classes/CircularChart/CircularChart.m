@@ -53,11 +53,14 @@
 
         self.legendViewType = LegendTypeVertical;
         self.showLegend = TRUE;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
 
-- (void)drawPieChart{
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
     for(int i = 0; i <[self.dataSource numberOfValuesForCircularChart] ; i++){
         CircularChartDataRenderer *data = [[CircularChartDataRenderer alloc] init];
         [data setColor:[self.dataSource colorForValueInCircularChartWithIndex:i]];
@@ -73,6 +76,11 @@
         [legendData setLegendColor:data.color];
         [self.legendArray addObject:legendData];
     }
+}
+
+#pragma mark Draw Graph
+- (void)drawCircularChart{
+    [self getDataFromDataSource];
     
     self.strokeWidth = [self.dataSource strokeWidthForCircularChart];
     
@@ -106,6 +114,7 @@
     [self setNeedsDisplay];
 }
 
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -146,35 +155,62 @@
     return path;
 }
 
-#pragma mark Touch On Chart
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
-    
-    if(CGRectContainsPoint(self.circularChartView.frame, touchPoint)){
-        CALayer *layer = [self.circularChartView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
-                [shapeLayer setShadowRadius:10.0f];
-                [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                [shapeLayer setShadowOpacity:1.0f];
-                
-                touchedLayer = shapeLayer;
-
-                NSString *data = [shapeLayer valueForKey:@"data"];
-                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
-                [self showMarkerWithData:dataPercentage];
-                if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
-                    [self.delegate didTapOnCircularChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
+        
+        if(CGRectContainsPoint(self.circularChartView.frame, touchPoint)){
+            CALayer *layer = [self.circularChartView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
+                    [shapeLayer setShadowRadius:10.0f];
+                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                    [shapeLayer setShadowOpacity:1.0f];
+                    
+                    touchedLayer = shapeLayer;
+                    
+                    NSString *data = [shapeLayer valueForKey:@"data"];
+                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
+                    [self showMarkerWithData:dataPercentage];
+                    if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
+                        [self.delegate didTapOnCircularChartWithValue:data];
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
         }
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text{
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.circularChartView.center.x - 100/2, self.circularChartView.center.y, 100, 2*INNER_PADDING) cornerRadius:3];
+    NSAttributedString *attrString = [LegendView getAttributedString:[NSString stringWithFormat:@"%@",text] withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.circularChartView.center.x - (size.width + 2*SIDE_PADDING)/2, self.circularChartView.center.y - size.height/2, size.width + 2*SIDE_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
@@ -204,23 +240,7 @@
     [self.circularChartView.layer addSublayer:dataShapeLayer];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.circularChartView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -229,6 +249,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark Reload Graph
+- (void)reloadCircularChart{
+    [self.circularChartView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawCircularChart];
 }
 
 @end

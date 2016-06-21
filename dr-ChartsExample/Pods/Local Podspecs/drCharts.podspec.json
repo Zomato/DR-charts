@@ -1,0 +1,26 @@
+{
+  "name": "drCharts",
+  "version": "1.1",
+  "summary": "dr-Charts is a powerful & easy way to use charts in Objective-C for iOS.",
+  "description": "",
+  "homepage": "https://github.com/Zomato/DR-charts",
+  "license": {
+    "type": "Apache License, Version 2.0",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "dhirenthirani": "thiranidhiren@hotmail.com"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "source": {
+    "git": "https://github.com/Zomato/DR-charts",
+    "tag": "1.1"
+  },
+  "source_files": [
+    "dr-Charts/Classes",
+    "dr-Charts/Classes/**/*.{h,m}"
+  ],
+  "exclude_files": "dr-Charts/Classes/Exclude"
+}

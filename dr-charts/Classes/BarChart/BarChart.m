@@ -45,10 +45,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        self.xAxisArray = [[NSMutableArray alloc] init];
-        self.barDataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-        
         self.drawGridY = TRUE;
         self.drawGridX = TRUE;
         
@@ -61,13 +57,17 @@
         
         self.showLegend = TRUE;
         self.legendViewType = LegendTypeVertical;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
 
-- (void)drawBarGraph{
-    widht = WIDTH(self);
-    height = HEIGHT(self) - 2*INNER_PADDING;
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
+    self.xAxisArray = [[NSMutableArray alloc] init];
+    self.barDataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
     
     stepX = 0;
     
@@ -90,6 +90,14 @@
     }
     
     stepX += 20;
+}
+
+#pragma mark Draw Graph
+- (void)drawBarGraph{
+    widht = WIDTH(self);
+    height = HEIGHT(self) - 2*INNER_PADDING;
+    
+    [self getDataFromDataSource];
     
     widht = (stepX * self.xAxisArray.count) + (OFFSET_X * 2);
     
@@ -134,6 +142,7 @@
     [self setNeedsDisplay];
 }
 
+#pragma mark Draw Shape Layer
 - (void)createYAxisLine{
     float minY = 0.0;
     float maxY = 0.0;
@@ -184,7 +193,10 @@
                 drawGrid = FALSE;
             }
         }
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(0, HEIGHT(self.graphView) -(y + OFFSET_Y + 10), OFFSET_X - 5, 20) drawGrid:drawGrid];
+        NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(INNER_PADDING, HEIGHT(self.graphView) -(y + OFFSET_Y + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 
@@ -211,12 +223,19 @@
                 drawGrid = FALSE;
             }
         }
+        
+        NSString *text = @"";
         if (i == maxStep) {
-            [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:@"" textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+            text = @"";
         }
         else{
-            [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + OFFSET_X/2, HEIGHT(self.graphView) - OFFSET_Y + 5, OFFSET_X, 20) drawGrid:drawGrid];
+            text = [self.xAxisArray objectAtIndex:index];
         }
+        
+        NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:text textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
     }
 }
 
@@ -320,42 +339,70 @@
     return path;
 }
 
-#pragma mark Touch Action in a graph
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.graphView];
-    
-    if(CGRectContainsPoint(self.graphView.frame, touchPoint)){
-        CALayer *layer = [self.graphView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if ([shapeLayer isKindOfClass:[CAShapeLayer class]]){
-                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, NO)) {
-                    [shapeLayer setOpacity:1.0f];
-                    [shapeLayer setShadowRadius:10.0f];
-                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                    [shapeLayer setShadowOpacity:1.0f];
-                    
-                    touchedLayer = shapeLayer;
-
-                    NSString *data = [shapeLayer valueForKey:@"data"];
-                    [self showMarkerWithData:data];
-
-                    if ([self.delegate respondsToSelector:@selector(didTapOnBarChartWithValue:)]) {
-                        [self.delegate didTapOnBarChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.graphView];
+        
+        if(CGRectContainsPoint(self.graphView.frame, touchPoint)){
+            CALayer *layer = [self.graphView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if ([shapeLayer isKindOfClass:[CAShapeLayer class]]){
+                    if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, NO)) {
+                        [shapeLayer setOpacity:1.0f];
+                        [shapeLayer setShadowRadius:10.0f];
+                        [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                        [shapeLayer setShadowOpacity:1.0f];
+                        
+                        touchedLayer = shapeLayer;
+                        
+                        NSString *data = [shapeLayer valueForKey:@"data"];
+                        [self showMarkerWithData:data];
+                        
+                        if ([self.delegate respondsToSelector:@selector(didTapOnBarChartWithValue:)]) {
+                            [self.delegate didTapOnBarChartWithValue:data];
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.origin.y - 2*INNER_PADDING, rect.size.width, 2*INNER_PADDING) cornerRadius:3];
+    NSAttributedString *attrString = [LegendView getAttributedString:[NSString stringWithFormat:@"%@",text] withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x, rect.origin.y - size.height, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
-
+    
     dataShapeLayer = [[CAShapeLayer alloc] init];
     [dataShapeLayer setPath:[path CGPath]];
     [dataShapeLayer setBackgroundColor:[[UIColor whiteColor] CGColor]];
@@ -382,24 +429,7 @@
     [self.graphView.layer addSublayer:dataShapeLayer];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.graphView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -408,6 +438,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark Reload Graph
+- (void)reloadBarGraph{
+    [self.graphScrollView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawBarGraph];
 }
 
 @end

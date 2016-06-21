@@ -39,20 +39,25 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.dataArray = [[NSMutableArray alloc] init];
-        self.legendArray = [[NSMutableArray alloc] init];
-
         self.textFontSize = 12;
         self.textFont = [UIFont systemFontOfSize:self.textFontSize];
         self.textColor = [UIColor blackColor];
         
         self.legendViewType = LegendTypeVertical;
         self.showLegend = TRUE;
+        
+        self.showValueOnBarSlice = TRUE;
+        
+        self.showMarker = TRUE;
     }
     return self;
 }
 
-- (void) drawStackChart{
+#pragma mark Get Data From Data Source
+- (void)getDataFromDataSource{
+    self.dataArray = [[NSMutableArray alloc] init];
+    self.legendArray = [[NSMutableArray alloc] init];
+    
     for (int i=0; i<[self.dataSource numberOfValuesForStackChart]; i++) {
         HorizontalStackBarData *chartData = [[HorizontalStackBarData alloc] init];
         [chartData setColor:[self.dataSource colorForValueInStackChartWithIndex:i]];
@@ -67,6 +72,11 @@
         [data setLegendColor:chartData.color];
         [self.legendArray addObject:data];
     }
+}
+
+#pragma mark Draw Graph
+- (void) drawStackChart{
+    [self getDataFromDataSource];
     
     height = HEIGHT(self) - 2*INNER_PADDING;
     
@@ -90,6 +100,7 @@
     [self addSubview:self.barView];
 }
 
+#pragma mark Draw Shape Layer
 - (void)drawPathWithValue:(CGFloat)value color:(UIColor *)color{
     CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
     [shapeLayer setPath:[[self drawArcWithValue:value] CGPath]];
@@ -117,6 +128,26 @@
     [group setBeginTime:CACurrentMediaTime()];
     [group setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
+    NSString *text = [NSString stringWithFormat:@"%0.2f%%",(value/totalCount)*100];
+    CGRect layerRect = CGPathGetBoundingBox(shapeLayer.path);
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    if (size.height < layerRect.size.height && size.width < layerRect.size.width && self.showValueOnBarSlice) {
+        CATextLayer *textLayer = [[CATextLayer alloc] init];
+        [textLayer setFont:CFBridgingRetain(self.textFont.fontName)];
+        [textLayer setFontSize:self.textFontSize];
+        [textLayer setFrame:CGRectMake(layerRect.origin.x + layerRect.size.width/2 - size.width/2, layerRect.origin.y + layerRect.size.height/2 - size.height/2, size.width, size.height)];
+        [textLayer setString:[NSString stringWithFormat:@"%@",text]];
+        [textLayer setAlignmentMode:kCAAlignmentCenter];
+        [textLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+        [textLayer setForegroundColor:[[UIColor whiteColor] CGColor]];
+        [textLayer setShouldRasterize:YES];
+        [textLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
+        [textLayer setContentsScale:[[UIScreen mainScreen] scale]];
+        [shapeLayer addSublayer:textLayer];
+    }
+
     [shapeLayer addAnimation:group forKey:@"animate"];
     
     [CATransaction commit];
@@ -141,45 +172,74 @@
     return path;
 }
 
+#pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    CGPoint touchPoint = [[touches anyObject] locationInView:self.barView];
-    
-    if(CGRectContainsPoint(self.barView.frame, touchPoint)){
-        CALayer *layer = [self.barView.layer hitTest:touchPoint];
-        for(CAShapeLayer *shapeLayer in layer.sublayers){
-            if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
-                [shapeLayer setOpacity:1.0f];
-                [shapeLayer setShadowRadius:10.0f];
-                [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
-                [shapeLayer setShadowOpacity:1.0f];
-                
-                touchedLayer = shapeLayer;
-                
-                NSString *data = [shapeLayer valueForKey:@"data"];
-                NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/totalCount)*100];
-                [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
-                if ([self.delegate respondsToSelector:@selector(didTapOnHorizontalStackBarChartWithValue:)]) {
-                    [self.delegate didTapOnHorizontalStackBarChartWithValue:data];
+    if (self.showMarker) {
+        CGPoint touchPoint = [[touches anyObject] locationInView:self.barView];
+        
+        if(CGRectContainsPoint(self.barView.frame, touchPoint)){
+            CALayer *layer = [self.barView.layer hitTest:touchPoint];
+            for(CAShapeLayer *shapeLayer in layer.sublayers){
+                if (CGPathContainsPoint(shapeLayer.path, 0, touchPoint, YES)) {
+                    [shapeLayer setOpacity:1.0f];
+                    [shapeLayer setShadowRadius:10.0f];
+                    [shapeLayer setShadowColor:[[UIColor blackColor] CGColor]];
+                    [shapeLayer setShadowOpacity:1.0f];
+                    
+                    touchedLayer = shapeLayer;
+                    
+                    NSString *data = [shapeLayer valueForKey:@"data"];
+                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/totalCount)*100];
+                    [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
+                    if ([self.delegate respondsToSelector:@selector(didTapOnHorizontalStackBarChartWithValue:)]) {
+                        [self.delegate didTapOnHorizontalStackBarChartWithValue:data];
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
         }
     }
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.showMarker) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Marker
 - (void)showMarkerWithData:(NSString *)text withTouchedPoint:(CGPoint)point{
     CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
     
+    NSAttributedString *attrString = [LegendView getAttributedString:text withFont:self.textFont];
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+
     CGFloat viewX = 0;
     if (point.x <= self.barView.center.x) {
         viewX = self.barView.center.x;
     }
     else{
-        viewX = self.barView.center.x - 100;
+        viewX = self.barView.center.x - size.width + 2*INNER_PADDING;
     }
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, rect.origin.y, 100, 2*INNER_PADDING) cornerRadius:3];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(viewX, rect.origin.y, size.width + 2*INNER_PADDING, size.height) cornerRadius:3];
     [path closePath];
     [path stroke];
     
@@ -209,24 +269,7 @@
     [self.barView.layer addSublayer:dataShapeLayer];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [touchedLayer setOpacity:0.7f];
-    [touchedLayer setShadowRadius:0.0f];
-    [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
-    [touchedLayer setShadowOpacity:0.0f];
-    
-    [dataShapeLayer removeFromSuperlayer];
-}
-
+#pragma mark Create Legend
 - (void) createLegend{
     self.legendView = [[LegendView alloc] initWithFrame:CGRectMake(SIDE_PADDING, BOTTOM(self.barView), WIDTH(self) - 2*SIDE_PADDING, 0)];
     [self.legendView setLegendArray:self.legendArray];
@@ -235,6 +278,14 @@
     [self.legendView setLegendViewType:self.legendViewType];
     [self.legendView createLegend];
     [self addSubview:self.legendView];
+}
+
+#pragma mark Reload Graph
+- (void)reloadHorizontalStackGraph{
+    [self.barView removeFromSuperview];
+    [self.legendView removeFromSuperview];
+    
+    [self drawStackChart];
 }
 
 @end
