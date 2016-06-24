@@ -30,7 +30,7 @@ Easy to use, customizable and interactive charts library for iOS in Objective-C
 #### Using CocoaPod
 Simply add the following line to your Podfile and install the pod. 
 ```
-pod 'dr-charts', :git => 'https://github.com/Zomato/DR-charts.git'
+pod 'drCharts', :git => 'https://github.com/Zomato/DR-charts.git'
 ```
 Where "dr-charts" is the name of the library.
 
