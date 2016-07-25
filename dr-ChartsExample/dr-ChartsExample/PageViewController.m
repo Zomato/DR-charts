@@ -304,6 +304,27 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
+- (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Stack Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
+
 #pragma mark HorizontalStackBarChartDelegate
 - (void)didTapOnHorizontalStackBarChartWithValue:(NSString *)value{
     NSLog(@"Horizontal Stack Chart: %@",value);

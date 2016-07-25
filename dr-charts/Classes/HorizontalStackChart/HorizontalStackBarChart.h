@@ -31,6 +31,10 @@
 - (NSNumber *)valueInStackChartWithIndex:(NSInteger)index;
 //Set Value for each item in a Stack Chart
 
+@optional
+- (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value;
+//Set Custom View for touch on each item in a Circular Chart
+
 @end
 
 @interface HorizontalStackBarChart : UIView
@@ -53,6 +57,10 @@
 
 //show MARKER when interacting with graph
 @property (nonatomic) BOOL showMarker; //Default is TRUE
+
+//show CUSTOM MARKER when interacting with graph.
+//If Both MARKER and CUSTOM MARKER view are True then CUSTOM MARKER View Priorties over MARKER View.
+@property (nonatomic) BOOL showCustomMarkerView; //Default is FALSE
 
 //To draw the graph
 - (void)drawStackChart;
