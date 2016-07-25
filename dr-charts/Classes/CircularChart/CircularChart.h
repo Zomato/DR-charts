@@ -38,7 +38,7 @@
 
 @optional
 - (UIView *)viewForCircularChartTouchWithValue:(NSNumber *)value;
-//Set Custom View for each item in a Pie Chart
+//Set Custom View for touch on each item in a Circular Chart
 
 @end
 

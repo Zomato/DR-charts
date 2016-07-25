@@ -32,7 +32,7 @@
 @property (nonatomic, strong) NSNumber *totalCount;
 @property (nonatomic, strong) LegendView *legendView;
 @property (nonatomic, strong) UIView *pieView;
-@property (nonatomic, strong) UIView *markerView;
+@property (nonatomic, strong) UIView *customMarkerView;
 
 @end
 
@@ -196,7 +196,7 @@
                     
                     NSString *data = [shapeLayer valueForKey:@"data"];
                     if (self.showCustomMarkerView) {
-                        [self showViewWithData:data withTouchedPoint:touchPoint];
+                        [self showCustomMarkerViewWithData:data withTouchedPoint:touchPoint];
                     }
                     else if(self.showMarker){
                         [self showMarkerWithData:data withTouchedPoint:touchPoint];
@@ -220,7 +220,7 @@
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
         [touchedLayer setShadowOpacity:0.0f];
         
-        [self.markerView removeFromSuperview];
+        [self.customMarkerView removeFromSuperview];
     }
     else if (self.showMarker) {
         [touchedLayer setOpacity:0.7f];
@@ -239,7 +239,7 @@
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
         [touchedLayer setShadowOpacity:0.0f];
         
-        [self.markerView removeFromSuperview];
+        [self.customMarkerView removeFromSuperview];
     }
     else if (self.showMarker) {
         [touchedLayer setOpacity:0.7f];
@@ -252,20 +252,20 @@
 }
 
 #pragma mark Show Custom Marker
-- (void)showViewWithData:(NSString *)data withTouchedPoint:(CGPoint)point{
-    self.markerView = [self.dataSource viewForTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+- (void)showCustomMarkerViewWithData:(NSString *)data withTouchedPoint:(CGPoint)point{
+    self.customMarkerView = [self.dataSource viewForPieChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
     
-    if (self.markerView != nil) {
+    if (self.customMarkerView != nil) {
         CGFloat viewX = 0;
         if (point.x <= self.pieView.center.x) {
             viewX = self.pieView.center.x;
         }
         else{
-            viewX = self.pieView.center.x - WIDTH(self.markerView);
+            viewX = self.pieView.center.x - WIDTH(self.customMarkerView);
         }
         
-        [self.markerView setFrame:CGRectMake(viewX, self.pieView.center.y, WIDTH(self.markerView), HEIGHT(self.markerView))];
-        [self.pieView addSubview:self.markerView];
+        [self.customMarkerView setFrame:CGRectMake(viewX, self.pieView.center.y, WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
+        [self.pieView addSubview:self.customMarkerView];
     }
 }
 

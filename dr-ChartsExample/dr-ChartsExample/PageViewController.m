@@ -247,7 +247,7 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
-- (UIView *)viewForTouchWithValue:(NSNumber *)value{
+- (UIView *)viewForPieChartTouchWithValue:(NSNumber *)value{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];

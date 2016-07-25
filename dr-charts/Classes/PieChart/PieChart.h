@@ -33,8 +33,8 @@
 //Default Value is 0
 
 @optional
-- (UIView *)viewForTouchWithValue:(NSNumber *)value;
-//Set Custom View for each item in a Pie Chart
+- (UIView *)viewForPieChartTouchWithValue:(NSNumber *)value;
+//Set Custom View for touch on each item in a Pie Chart
 
 @end
 
