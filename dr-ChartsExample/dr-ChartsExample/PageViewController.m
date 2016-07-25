@@ -222,6 +222,7 @@
     [chart setDataSource:self];
     [chart setDelegate:self];
     [chart setLegendViewType:LegendTypeHorizontal];
+    [chart setShowCustomMarkerView:TRUE];
     [chart drawPieChart];
     [self.view addSubview:chart];
 }
@@ -279,6 +280,7 @@
     [chartView setDataSource:self];
     [chartView setDelegate:self];
     [chartView setLegendViewType:LegendTypeHorizontal];
+    [chartView setShowCustomMarkerView:TRUE];
     [chartView drawStackChart];
     [self.view addSubview:chartView];
 }
@@ -378,6 +380,27 @@
     return array;
 }
 
+- (UIView *)viewForBarChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Bar Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
+
 #pragma mark BarChartDelegate
 - (void)didTapOnBarChartWithValue:(NSString *)value{
     NSLog(@"Bar Chart: %@",value);
@@ -389,6 +412,7 @@
     [chart setDataSource:self];
     [chart setDelegate:self];
     [chart setLegendViewType:LegendTypeHorizontal];
+    [chart setShowCustomMarkerView:TRUE];
     [chart drawCircularChart];
     [self.view addSubview:chart];
 }

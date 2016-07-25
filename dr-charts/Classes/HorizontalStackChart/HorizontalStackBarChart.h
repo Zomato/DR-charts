@@ -33,7 +33,7 @@
 
 @optional
 - (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value;
-//Set Custom View for touch on each item in a Circular Chart
+//Set Custom View for touch on each item in a Stack Chart
 
 @end
 
