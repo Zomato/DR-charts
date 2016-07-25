@@ -36,6 +36,10 @@
 //Set Value for each item in a Circular Chart
 //Default value is 0
 
+@optional
+- (UIView *)viewForCircularChartTouchWithValue:(NSNumber *)value;
+//Set Custom View for each item in a Pie Chart
+
 @end
 
 @interface CircularChart : UIView
@@ -55,6 +59,10 @@
 
 //show MARKER when interacting with graph
 @property (nonatomic) BOOL showMarker; //Default is TRUE
+
+//show CUSTOM MARKER when interacting with graph.
+//If Both MARKER and CUSTOM MARKER view are True then CUSTOM MARKER View Priorties over MARKER View.
+@property (nonatomic) BOOL showCustomMarkerView; //Default is FALSE
 
 //To draw the graph
 - (void)drawCircularChart;
