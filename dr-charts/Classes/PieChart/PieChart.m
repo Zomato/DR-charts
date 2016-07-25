@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSNumber *totalCount;
 @property (nonatomic, strong) LegendView *legendView;
 @property (nonatomic, strong) UIView *pieView;
+@property (nonatomic, strong) UIView *markerView;
 
 @end
 
@@ -53,6 +54,8 @@
         self.showValueOnPieSlice = TRUE;
         
         self.showMarker = TRUE;
+        
+        self.showCustomMarkerView = FALSE;
     }
     return self;
 }
@@ -177,7 +180,7 @@
 
 #pragma mark Touch Action in a graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         CGPoint touchPoint = [[touches anyObject] locationInView:self.pieView];
         
         if(CGRectContainsPoint(self.pieView.frame, touchPoint)){
@@ -192,8 +195,13 @@
                     touchedLayer = shapeLayer;
                     
                     NSString *data = [shapeLayer valueForKey:@"data"];
-                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
-                    [self showMarkerWithData:dataPercentage withTouchedPoint:touchPoint];
+                    if (self.showCustomMarkerView) {
+                        [self showViewWithData:data withTouchedPoint:touchPoint];
+                    }
+                    else if(self.showMarker){
+                        [self showMarkerWithData:data withTouchedPoint:touchPoint];
+                    }
+                    
                     if ([self.delegate respondsToSelector:@selector(didTapOnPieChartWithValue:)]) {
                         [self.delegate didTapOnPieChartWithValue:data];
                     }
@@ -206,7 +214,15 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showCustomMarkerView) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [self.markerView removeFromSuperview];
+    }
+    else if (self.showMarker) {
         [touchedLayer setOpacity:0.7f];
         [touchedLayer setShadowRadius:0.0f];
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
@@ -217,13 +233,39 @@
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showCustomMarkerView) {
+        [touchedLayer setOpacity:0.7f];
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [self.markerView removeFromSuperview];
+    }
+    else if (self.showMarker) {
         [touchedLayer setOpacity:0.7f];
         [touchedLayer setShadowRadius:0.0f];
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
         [touchedLayer setShadowOpacity:0.0f];
         
         [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Custom Marker
+- (void)showViewWithData:(NSString *)data withTouchedPoint:(CGPoint)point{
+    self.markerView = [self.dataSource viewForTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+    
+    if (self.markerView != nil) {
+        CGFloat viewX = 0;
+        if (point.x <= self.pieView.center.x) {
+            viewX = self.pieView.center.x;
+        }
+        else{
+            viewX = self.pieView.center.x - WIDTH(self.markerView);
+        }
+        
+        [self.markerView setFrame:CGRectMake(viewX, self.pieView.center.y, WIDTH(self.markerView), HEIGHT(self.markerView))];
+        [self.pieView addSubview:self.markerView];
     }
 }
 
