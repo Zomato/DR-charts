@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/Zomato/DR-charts", :tag => "1.3" }
 
-  s.source_files  = "dr-Charts/Classes", "dr-Charts/Classes/**/*.{h}"
+  s.source_files  = "dr-Charts/Classes", "dr-Charts/Classes/**/*.{h,m}"
   s.exclude_files = "dr-Charts/Classes/Exclude"
 
 end
