@@ -419,7 +419,7 @@
 
 #pragma mark Show Custom Marker
 - (void)showCustomMarkerViewWithData:(NSString *)data{
-    self.customMarkerView = [self.dataSource viewForBarChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+    self.customMarkerView = [self.dataSource customViewForBarChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
     
     if (self.customMarkerView != nil) {
         CGRect rect = CGPathGetBoundingBox(touchedLayer.path);

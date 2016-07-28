@@ -212,7 +212,7 @@
     return [[NSMutableArray alloc] init];
 }
 
-- (UIView *)viewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
+- (UIView *)customViewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];
@@ -270,7 +270,7 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
-- (UIView *)viewForPieChartTouchWithValue:(NSNumber *)value{
+- (UIView *)customViewForPieChartTouchWithValue:(NSNumber *)value{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];
@@ -328,7 +328,7 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
-- (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value{
+- (UIView *)customViewForStackChartTouchWithValue:(NSNumber *)value{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];
@@ -360,6 +360,7 @@
     [barChartView setDataSource:self];
     [barChartView setDelegate:self];
     [barChartView setLegendViewType:LegendTypeHorizontal];
+    [barChartView setShowCustomMarkerView:TRUE];
     [barChartView drawBarGraph];
 
     [self.view addSubview:barChartView];
@@ -402,7 +403,7 @@
     return array;
 }
 
-- (UIView *)viewForBarChartTouchWithValue:(NSNumber *)value{
+- (UIView *)customViewForBarChartTouchWithValue:(NSNumber *)value{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];
@@ -428,7 +429,7 @@
     NSLog(@"Bar Chart: %@",value);
 }
 
-#pragma Mark CreatePieChart
+#pragma Mark CreateCircularChart
 - (void)createCircularChart{
     CircularChart *chart = [[CircularChart alloc] initWithFrame:CGRectMake(0, header_height, WIDTH(self.view), (HEIGHT(self.view) - header_height)/2)];
     [chart setDataSource:self];
@@ -464,7 +465,7 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
-- (UIView *)viewForCircularChartTouchWithValue:(NSNumber *)value{
+- (UIView *)customViewForCircularChartTouchWithValue:(NSNumber *)value{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];

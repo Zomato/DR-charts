@@ -37,7 +37,7 @@
 //Default value is 0
 
 @optional
-- (UIView *)viewForCircularChartTouchWithValue:(NSNumber *)value;
+- (UIView *)customViewForCircularChartTouchWithValue:(NSNumber *)value;
 //Set Custom View for touch on each item in a Circular Chart
 
 @end

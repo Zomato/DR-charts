@@ -251,7 +251,7 @@
 
 #pragma mark Show Custom Marker
 - (void)showCustomMarkerViewWithData:(NSString *)data withTouchedPoint:(CGPoint)point{
-    self.customMarkerView = [self.dataSource viewForStackChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+    self.customMarkerView = [self.dataSource customViewForStackChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
     
     if (self.customMarkerView != nil) {
         CGRect rect = CGPathGetBoundingBox(touchedLayer.path);
