@@ -38,6 +38,10 @@
 - (NSMutableArray *)yDataForBarWithBarNumber:(NSInteger)barNumber;
 //Set y-Axis data for each item in a Bar Chart
 
+@optional
+- (UIView *)viewForBarChartTouchWithValue:(NSNumber *)value;
+//Set Custom View for touch on each item in a Bar Chart
+
 @end
 
 @interface BarChart : UIView
@@ -64,6 +68,10 @@
 
 //show MARKER when interacting with graph
 @property (nonatomic) BOOL showMarker; //Default is TRUE
+
+//show CUSTOM MARKER when interacting with graph.
+//If Both MARKER and CUSTOM MARKER view are True then CUSTOM MARKER View Priorties over MARKER View.
+@property (nonatomic) BOOL showCustomMarkerView; //Default is FALSE
 
 //To draw the graph
 - (void)drawBarGraph;

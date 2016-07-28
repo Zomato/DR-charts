@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSNumber *totalCount;
 @property (nonatomic, strong) LegendView *legendView;
 @property (nonatomic, strong) UIView *circularChartView;
+@property (nonatomic, strong) UIView *customMarkerView;
 
 @end
 
@@ -55,6 +56,8 @@
         self.showLegend = TRUE;
         
         self.showMarker = TRUE;
+        
+        self.showCustomMarkerView = FALSE;
     }
     return self;
 }
@@ -157,7 +160,7 @@
 
 #pragma mark Touch Action On Graph
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         CGPoint touchPoint = [[touches anyObject] locationInView:self.circularChartView];
         
         if(CGRectContainsPoint(self.circularChartView.frame, touchPoint)){
@@ -171,8 +174,12 @@
                     touchedLayer = shapeLayer;
                     
                     NSString *data = [shapeLayer valueForKey:@"data"];
-                    NSString *dataPercentage = [NSString stringWithFormat:@"%0.2f%%",(data.floatValue/self.totalCount.floatValue)*100];
-                    [self showMarkerWithData:dataPercentage];
+                    if (self.showCustomMarkerView) {
+                        [self showCustomMarkerViewWithData:data];
+                    }
+                    else if(self.showMarker){
+                        [self showMarkerWithData:data];
+                    }
                     if ([self.delegate respondsToSelector:@selector(didTapOnCircularChartWithValue:)]) {
                         [self.delegate didTapOnCircularChartWithValue:data];
                     }
@@ -185,7 +192,14 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showCustomMarkerView) {
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [self.customMarkerView removeFromSuperview];
+    }
+    else if (self.showMarker) {
         [touchedLayer setShadowRadius:0.0f];
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
         [touchedLayer setShadowOpacity:0.0f];
@@ -195,13 +209,31 @@
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showCustomMarkerView) {
+        [touchedLayer setShadowRadius:0.0f];
+        [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
+        [touchedLayer setShadowOpacity:0.0f];
+        
+        [self.customMarkerView removeFromSuperview];
+    }
+    else if (self.showMarker) {
         [touchedLayer setOpacity:0.7f];
         [touchedLayer setShadowRadius:0.0f];
         [touchedLayer setShadowColor:[[UIColor clearColor] CGColor]];
         [touchedLayer setShadowOpacity:0.0f];
         
         [dataShapeLayer removeFromSuperlayer];
+    }
+}
+
+#pragma mark Show Custom Marker
+- (void)showCustomMarkerViewWithData:(NSString *)data{
+    self.customMarkerView = [self.dataSource viewForCircularChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+    
+    if (self.customMarkerView != nil) {
+        
+        [self.customMarkerView setFrame:CGRectMake(self.circularChartView.center.x - WIDTH(self.customMarkerView)/2, self.circularChartView.center.y - HEIGHT(self.customMarkerView)/2, WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
+        [self.circularChartView addSubview:self.customMarkerView];
     }
 }
 

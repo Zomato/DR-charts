@@ -75,6 +75,7 @@
     [graph setDelegate:self];
     [graph setDataSource:self];
     [graph setLegendViewType:LegendTypeHorizontal];
+    [graph setShowCustomMarkerView:TRUE];
     [graph drawGraph];
     [self.view addSubview:graph];
 }
@@ -83,7 +84,7 @@
 - (NSMutableArray *)xDataForLineToBePlotted{
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < 30; i++) {
-        [array addObject:[NSString stringWithFormat:@"%d june", i]];
+        [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
     }
     return array;
 }
@@ -211,6 +212,27 @@
     return [[NSMutableArray alloc] init];
 }
 
+- (UIView *)viewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Line Data: %@", yValue]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
+
 #pragma mark MultiLineGraphViewDelegate
 - (void)didTapWithValuesAtX:(NSString *)xValue valuesAtY:(NSString *)yValue{
     NSLog(@"Line Chart: Value-X:%@, Value-Y:%@",xValue, yValue);
@@ -222,6 +244,7 @@
     [chart setDataSource:self];
     [chart setDelegate:self];
     [chart setLegendViewType:LegendTypeHorizontal];
+    [chart setShowCustomMarkerView:TRUE];
     [chart drawPieChart];
     [self.view addSubview:chart];
 }
@@ -247,6 +270,27 @@
     return [NSNumber numberWithLong:random() % 100];
 }
 
+- (UIView *)viewForPieChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Pie Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
+
 #pragma mark PieChartDelegate
 - (void)didTapOnPieChartWithValue:(NSString *)value{
     NSLog(@"Pie Chart: %@",value);
@@ -258,6 +302,7 @@
     [chartView setDataSource:self];
     [chartView setDelegate:self];
     [chartView setLegendViewType:LegendTypeHorizontal];
+    [chartView setShowCustomMarkerView:TRUE];
     [chartView drawStackChart];
     [self.view addSubview:chartView];
 }
@@ -281,6 +326,27 @@
 
 - (NSNumber *)valueInStackChartWithIndex:(NSInteger)index{
     return [NSNumber numberWithLong:random() % 100];
+}
+
+- (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Stack Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
 }
 
 #pragma mark HorizontalStackBarChartDelegate
@@ -336,6 +402,27 @@
     return array;
 }
 
+- (UIView *)viewForBarChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Bar Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
+
 #pragma mark BarChartDelegate
 - (void)didTapOnBarChartWithValue:(NSString *)value{
     NSLog(@"Bar Chart: %@",value);
@@ -347,6 +434,7 @@
     [chart setDataSource:self];
     [chart setDelegate:self];
     [chart setLegendViewType:LegendTypeHorizontal];
+    [chart setShowCustomMarkerView:TRUE];
     [chart drawCircularChart];
     [self.view addSubview:chart];
 }
@@ -374,6 +462,28 @@
 
 - (NSNumber *)valueInCircularChartWithIndex:(NSInteger)index{
     return [NSNumber numberWithLong:random() % 100];
+}
+
+- (UIView *)viewForCircularChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Circular Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [label setAdjustsFontSizeToFitWidth:TRUE];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
 }
 
 #pragma mark CircularChartDelegate

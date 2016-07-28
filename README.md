@@ -69,6 +69,7 @@ pragma Mark CreateLineGraph
     [graph setMarkerTextColor:[UIColor whiteColor]];
     [graph setMarkerWidth:0.4];
     [graph setShowMarker:TRUE];
+    [graph showCustomMarkerView:TRUE];
 
     [graph drawGraph];
     [self.view addSubview:graph];
@@ -156,6 +157,27 @@ pragma Mark CreateLineGraph
     }
     return [[NSMutableArray alloc] init];
 }
+
+- (UIView *)customViewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Line Data: %@", yValue]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
 ```
 ######Set Delegate
 ```objc
@@ -190,6 +212,7 @@ This is an example of a Bar Chart:
     [barChartView setTextColor:[UIColor blackColor]];
     [barChartView setTextFont:[UIFont systemFontOfSize:barChartView.textFontSize]];
 
+    [barChartView setShowCustomMarkerView:TRUE];
     [barChartView drawBarGraph];
 
     [self.view addSubview:barChartView];
@@ -233,6 +256,27 @@ This is an example of a Bar Chart:
     }
     return array;
 }
+
+- (UIView *)customViewForBarChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Bar Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
 ```
 ######Set Delegate
 ```objc
@@ -261,6 +305,9 @@ This is an example of Pie Chart
     [chart setTextColor:[UIColor blackColor]];
     [chart setTextFont:[UIFont systemFontOfSize:chart.textFontSize]];
     
+    [chart setShowValueOnPieSlice:TRUE];
+    [chart setShowCustomMarkerView:TRUE];
+    
     [chart drawPieChart];
     [self.view addSubview:chart];
 }
@@ -286,6 +333,27 @@ This is an example of Pie Chart
 
 - (NSNumber *)valueInPieChartWithIndex:(NSInteger)index{
     return [NSNumber numberWithLong:random() % 100];
+}
+
+- (UIView *)customViewForPieChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Pie Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
 }
 ```
 ######Set Delegate
@@ -315,6 +383,9 @@ This is an example of Horizontal Stack Chart
     [chartView setTextColor:[UIColor blackColor]];
     [chartView setTextFont:[UIFont systemFontOfSize:chartView.textFontSize]];
     
+    [chartView setShowValueOnBarSlice:TRUE];
+    [chartView setShowCustomMarkerView:TRUE];
+
     [chartView drawStackChart];
     [self.view addSubview:chartView];
 }
@@ -341,6 +412,27 @@ This is an example of Horizontal Stack Chart
 - (NSNumber *)valueInStackChartWithIndex:(NSInteger)index{
     return [NSNumber numberWithLong:random() % 100];
 }
+
+- (UIView *)customViewForStackChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Stack Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
+}
 ```
 ######Set Delegate
 ```objc
@@ -356,7 +448,7 @@ This is an example of Circular Chart
 
 ######Set Properties
 ```objc
-#pragma Mark CreatePieChart
+#pragma Mark CreateCircularChart
 - (void)createCircularChart{
     CircularChart *chart = [[CircularChart alloc] initWithFrame:CGRectMake(0, header_height, WIDTH(self.view), (HEIGHT(self.view) - header_height)/2)];
     [chart setDataSource:self];
@@ -368,6 +460,8 @@ This is an example of Circular Chart
     [chart setTextFontSize:12];
     [chart setTextColor:[UIColor blackColor]];
     [chart setTextFont:[UIFont systemFontOfSize:chart.textFontSize]];
+
+    [chart setShowCustomMarkerView:TRUE];
 
     [chart drawPieChart];
     [self.view addSubview:chart];
@@ -398,6 +492,28 @@ This is an example of Circular Chart
 
 - (NSNumber *)valueInCircularChartWithIndex:(NSInteger)index{
     return [NSNumber numberWithLong:random() % 100];
+}
+
+- (UIView *)customViewForCircularChartTouchWithValue:(NSNumber *)value{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Circular Data: %@", value]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [label setAdjustsFontSizeToFitWidth:TRUE];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
 }
 ```
 ######Set Delegate

@@ -57,6 +57,10 @@ typedef enum {
 //Set yData for Line on Line Graph When Line Type is LineDefault & LineParallelXAxis
 //If LineType is LineParallelYAxis, Set xData for the Line on Line Graph
 
+@optional
+- (UIView *)viewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue;
+//Set Custom View for touch on each item in a Line Chart
+
 @end
 
 @interface MultiLineGraphView : UIView
@@ -78,6 +82,10 @@ typedef enum {
 
 //show MARKER when interacting with graph
 @property (nonatomic) BOOL showMarker; //Default is TRUE
+
+//show CUSTOM MARKER when interacting with graph.
+//If Both MARKER and CUSTOM MARKER view are True then CUSTOM MARKER View Priorties over MARKER View.
+@property (nonatomic) BOOL showCustomMarkerView; //Default is FALSE
 
 //to set marker property
 @property (nonatomic, strong) UIColor *markerColor; //Default is [UIColor orangeColor]
