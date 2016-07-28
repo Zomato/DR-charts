@@ -144,10 +144,12 @@
     CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self), MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
     if (size.height < layerRect.size.height/2 && size.width < layerRect.size.width/2 && self.showValueOnPieSlice) {
+        CGRect frame = CGRectMake(layerRect.origin.x + layerRect.size.width/2 - size.width/2, layerRect.origin.y + layerRect.size.height/2 - size.height/2, size.width, size.height);
+        
         CATextLayer *textLayer = [[CATextLayer alloc] init];
         [textLayer setFont:CFBridgingRetain(self.textFont.fontName)];
         [textLayer setFontSize:self.textFontSize];
-        [textLayer setFrame:CGRectMake(layerRect.origin.x + layerRect.size.width/2 - size.width/2, layerRect.origin.y + layerRect.size.height/2 - size.height/2, size.width, size.height)];
+        [textLayer setFrame:frame];
         [textLayer setString:[NSString stringWithFormat:@"%@",text]];
         [textLayer setAlignmentMode:kCAAlignmentCenter];
         [textLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
