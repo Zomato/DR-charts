@@ -32,7 +32,7 @@
 //Set Value for each item in a Stack Chart
 
 @optional
-- (UIView *)viewForStackChartTouchWithValue:(NSNumber *)value;
+- (UIView *)customViewForStackChartTouchWithValue:(NSNumber *)value;
 //Set Custom View for touch on each item in a Stack Chart
 
 @end

@@ -39,7 +39,7 @@
 //Set y-Axis data for each item in a Bar Chart
 
 @optional
-- (UIView *)viewForBarChartTouchWithValue:(NSNumber *)value;
+- (UIView *)customViewForBarChartTouchWithValue:(NSNumber *)value;
 //Set Custom View for touch on each item in a Bar Chart
 
 @end

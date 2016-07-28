@@ -228,7 +228,7 @@
 
 #pragma mark Show Custom Marker
 - (void)showCustomMarkerViewWithData:(NSString *)data{
-    self.customMarkerView = [self.dataSource viewForCircularChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
+    self.customMarkerView = [self.dataSource customViewForCircularChartTouchWithValue:[NSNumber numberWithFloat:data.floatValue]];
     
     if (self.customMarkerView != nil) {
         
