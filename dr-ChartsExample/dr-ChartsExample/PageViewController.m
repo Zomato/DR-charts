@@ -75,6 +75,7 @@
     [graph setDelegate:self];
     [graph setDataSource:self];
     [graph setLegendViewType:LegendTypeHorizontal];
+    [graph setShowCustomMarkerView:TRUE];
     [graph drawGraph];
     [self.view addSubview:graph];
 }
@@ -83,7 +84,7 @@
 - (NSMutableArray *)xDataForLineToBePlotted{
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < 30; i++) {
-        [array addObject:[NSString stringWithFormat:@"%d june", i]];
+        [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
     }
     return array;
 }
@@ -209,6 +210,27 @@
             break;
     }
     return [[NSMutableArray alloc] init];
+}
+
+- (UIView *)viewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    [view.layer setCornerRadius:4.0F];
+    [view.layer setBorderWidth:1.0F];
+    [view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [view.layer setShadowRadius:2.0F];
+    [view.layer setShadowOpacity:0.3F];
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:[NSString stringWithFormat:@"Line Data: %@", yValue]];
+    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [view addSubview:label];
+    
+    [view setFrame:label.frame];
+    return view;
 }
 
 #pragma mark MultiLineGraphViewDelegate

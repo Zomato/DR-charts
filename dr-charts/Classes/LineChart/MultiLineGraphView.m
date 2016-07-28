@@ -44,6 +44,7 @@
 @property (nonatomic, strong) LineGraphMarker *marker;
 @property (nonatomic, strong) CAShapeLayer *xMarker;
 @property (nonatomic, strong) CAShapeLayer *yMarker;
+@property (nonatomic, strong) UIView *customMarkerView;
 
 @property (nonatomic, strong) LegendView *legendView;
 @property (nonatomic, strong) DRScrollView *graphScrollView;
@@ -66,7 +67,7 @@
         self.gridLineColor = [UIColor lightGrayColor];
         self.gridLineWidth = 0.3;
         
-        self.textFontSize = 12;
+        self.textFontSize = 11;
         self.textColor = [UIColor blackColor];
         self.textFont = [UIFont systemFontOfSize:self.textFontSize];
         
@@ -76,7 +77,10 @@
         
         self.showLegend = TRUE;
         self.legendViewType = LegendTypeVertical;
+        
         self.showMarker = TRUE;
+        
+        self.showCustomMarkerView = FALSE;
         
         scaleHeight = 0;
         lastScale = 1;
@@ -224,7 +228,7 @@
         NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
         CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(INNER_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(OFFSET_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
     }
 }
 
@@ -511,7 +515,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         UITouch *touch = [touches anyObject];
         CGPoint pointTouched = [touch locationInView:self.graphView];
         
@@ -525,7 +529,7 @@
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         UITouch *touch = [touches anyObject];
         CGPoint pointTouched = [touch locationInView:self];
         
@@ -540,13 +544,13 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         [self hideMarker];
     }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.showMarker) {
+    if (self.showMarker || self.showCustomMarkerView) {
         [self hideMarker];
     }
 }
@@ -617,11 +621,30 @@
         
         [self.yMarker setPath:[[self drawPathWithStartPoint:CGPointMake(OFFSET_X, closestPoint.y) endPoint:CGPointMake(WIDTH(self.graphView) - OFFSET_X, closestPoint.y)] CGPath]];
         [self.yMarker setHidden:NO];
-        
-        [self.marker setXString:selectedXData];
-        [self.marker setYString:selectedYData];
-        [self.marker drawAtPoint:CGPointMake(selectedPoint.x, OFFSET_Y)];
-        [self.marker setHidden:NO];
+
+        if (self.showCustomMarkerView){
+            [self.marker setHidden:YES];
+            [self.marker removeFromSuperview];
+            
+            self.customMarkerView = [self.dataSource viewForLineChartTouchWithXValue:[NSNumber numberWithFloat:xData.floatValue] andYValue:[NSNumber numberWithFloat:yData.floatValue]];
+            
+            if (selectedPoint.x + WIDTH(self.customMarkerView) > self.graphScrollView.contentSize.width) {
+                selectedPoint.x -= WIDTH(self.customMarkerView);
+            }
+            
+            if (self.customMarkerView != nil) {
+                
+                [self.customMarkerView setFrame:CGRectMake(selectedPoint.x, OFFSET_Y - HEIGHT(self.customMarkerView), WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
+                [self.graphView addSubview:self.customMarkerView];
+            }
+            [self.graphScrollView addSubview:self.customMarkerView];
+        }
+        else if (self.showMarker) {
+            [self.marker setXString:selectedXData];
+            [self.marker setYString:selectedYData];
+            [self.marker drawAtPoint:CGPointMake(selectedPoint.x, OFFSET_Y)];
+            [self.marker setHidden:NO];
+        }
         
         [self setNeedsDisplay];
         
@@ -638,8 +661,13 @@
 }
 
 - (void)hideMarker{
-    [self.marker setHidden:YES];
-    [self.marker setFrame:CGRectZero];
+    if (self.showCustomMarkerView){
+        [self.customMarkerView removeFromSuperview];
+    }
+    else if (self.showMarker) {
+        [self.marker setHidden:YES];
+        [self.marker setFrame:CGRectZero];
+    }
     
     [self.xMarker setHidden:YES];
     [self.yMarker setHidden:YES];
