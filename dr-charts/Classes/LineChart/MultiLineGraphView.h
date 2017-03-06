@@ -58,7 +58,7 @@ typedef enum {
 //If LineType is LineParallelYAxis, Set xData for the Line on Line Graph
 
 @optional
-- (UIView *)customViewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue;
+- (UIView *)customViewForLineChartTouchWithXValue:(id)xValue andYValue:(id)yValue;
 //Set Custom View for touch on each item in a Line Chart
 
 @end

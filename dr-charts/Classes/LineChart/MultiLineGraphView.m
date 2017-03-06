@@ -626,7 +626,7 @@
             [self.marker setHidden:YES];
             [self.marker removeFromSuperview];
             
-            self.customMarkerView = [self.dataSource customViewForLineChartTouchWithXValue:[NSNumber numberWithFloat:xData.floatValue] andYValue:[NSNumber numberWithFloat:yData.floatValue]];
+            self.customMarkerView = [self.dataSource customViewForLineChartTouchWithXValue:xData andYValue:yData];
             
             if (selectedPoint.x + WIDTH(self.customMarkerView) > self.graphScrollView.contentSize.width) {
                 selectedPoint.x -= WIDTH(self.customMarkerView);
