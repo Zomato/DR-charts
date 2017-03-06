@@ -211,7 +211,7 @@
         CGPoint startPoint = CGPointMake(OFFSET_X, HEIGHT(self.graphView) - (y + OFFSET_Y));
         CGPoint endPoint = CGPointMake(WIDTH(self.graphView) - OFFSET_X, HEIGHT(self.graphView) - (y + OFFSET_Y));
         
-        NSString *numberString = [NSString stringWithFormat:@"%d",(int)value];
+        NSString *numberString = [NSString stringWithFormat:@"%.1f",value];
         
         BOOL drawGrid = TRUE;
         if (self.drawGridY) {
