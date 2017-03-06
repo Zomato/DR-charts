@@ -94,8 +94,6 @@
     self.lineDataArray = [[NSMutableArray alloc] init];
     self.legendArray = [[NSMutableArray alloc] init];
     
-    self.xAxisArray = [self.dataSource xDataForLineToBePlotted];
-    
     for (int i = 0 ; i < [self.dataSource numberOfLinesToBePlotted]; i++) {
         LineChartDataRenderer *lineData = [[LineChartDataRenderer alloc] init];
         [lineData setLineType:[self.dataSource typeOfLineToBeDrawnWithLineNumber:i]];
@@ -104,18 +102,20 @@
         [lineData setGraphName:[self.dataSource nameForTheLineWithLineNumber:i]];
         [lineData setFillGraph:[self.dataSource shouldFillGraphWithLineNumber:i]];
         [lineData setDrawPoints:[self.dataSource shouldDrawPointsWithLineNumber:i]];
-        if (lineData.lineType == LineParallelYAxis) {
-            [lineData setXAxisArray:[self.dataSource dataForLineWithLineNumber:i]];
-        }
-        else{
-            [lineData setYAxisArray:[self.dataSource dataForLineWithLineNumber:i]];
-        }
+        [lineData setXAxisArray:[self.dataSource dataForXAxisWithLineNumber:i]];
+        [lineData setYAxisArray:[self.dataSource dataForYAxisWithLineNumber:i]];
+        
         [self.lineDataArray addObject:lineData];
         
         LegendDataRenderer *data = [[LegendDataRenderer alloc] init];
         [data setLegendText:lineData.graphName];
         [data setLegendColor:lineData.lineColor];
         [self.legendArray addObject:data];
+        
+        if (self.xAxisArray.count < lineData.xAxisArray.count) {
+            [self.xAxisArray removeAllObjects];
+            [self.xAxisArray addObjectsFromArray:lineData.xAxisArray];
+        }
     }
 }
 
@@ -303,9 +303,19 @@
                     int x = 0;
                     int y = 0;
                     
+                    int j = 0;
+                    
+                    for (int i = 0; i < self.xAxisArray.count; i ++) {
+                        if ([self.xAxisArray objectAtIndex:i] == [lineData.xAxisArray objectAtIndex:j]) {
+                            j = i;
+                            break;
+                        }
+                    }
+                    
+                    x = j * stepX;
                     y = [[lineData.yAxisArray objectAtIndex:0] floatValue] * stepY;
                     
-                    CGPoint startPoint = CGPointMake(OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
+                    CGPoint startPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
                     CGPoint firstPoint = startPoint;
                     if (lineData.drawPoints) {
                         [self drawPointsOnLine:startPoint withColor:lineData.lineColor];
@@ -317,7 +327,7 @@
                     
                     CGPoint endPoint;
                     for (int i = 1; i < lineData.yAxisArray.count; i++){
-                        x = i * stepX;
+                        x = (j + i) * stepX;
                         y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
                         
                         endPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
@@ -590,9 +600,17 @@
         if (lineData.lineType == LineDefault) {
             int x = 0;
             int y = 0;
+            int j = 0;
+            
+            for (int i = 0; i < self.xAxisArray.count; i ++) {
+                if ([self.xAxisArray objectAtIndex:i] == [lineData.xAxisArray objectAtIndex:j]) {
+                    j = i;
+                    break;
+                }
+            }
             
             for (int i = 0; i < lineData.yAxisArray.count; i++){
-                x = i * stepX;
+                x = (j + i) * stepX;
                 y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
                 
                 CGPoint point = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
@@ -600,7 +618,7 @@
                 CGFloat distance = fabs([self distanceBetweenPoint:pointTouched andPoint:point]);
                 
                 if (distance < minDistance) {
-                    xData = [self.xAxisArray objectAtIndex:i];
+                    xData = [lineData.xAxisArray objectAtIndex:i];
                     yData = [lineData.yAxisArray objectAtIndex:i];
                     minDistance = distance;
                     closestPoint = point;

@@ -81,16 +81,8 @@
 }
 
 #pragma mark MultiLineGraphViewDataSource
-- (NSMutableArray *)xDataForLineToBePlotted{
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 30; i++) {
-        [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
-    }
-    return array;
-}
-
 - (NSInteger)numberOfLinesToBePlotted{
-    return 4;
+    return 5;
 }
 
 - (LineDrawingType)typeOfLineToBeDrawnWithLineNumber:(NSInteger)lineNumber{
@@ -102,9 +94,12 @@
             return LineDefault;
             break;
         case 2:
-            return LineParallelXAxis;
+            return LineDefault;
             break;
         case 3:
+            return LineParallelXAxis;
+            break;
+        case 4:
             return LineParallelYAxis;
             break;
         default:
@@ -141,6 +136,9 @@
             return false;
             break;
         case 3:
+            return false;
+            break;
+        case 4:
             return true;
             break;
         default:
@@ -163,48 +161,57 @@
         case 3:
             return false;
             break;
+        case 4:
+            return false;
+            break;
         default:
             break;
     }
     return false;
 }
 
-- (NSMutableArray *)dataForLineWithLineNumber:(NSInteger)lineNumber{
+- (NSMutableArray *)dataForYAxisWithLineNumber:(NSInteger)lineNumber {
     switch (lineNumber) {
         case 0:
-            {
-                NSMutableArray *array = [[NSMutableArray alloc] init];
-                for (int i = 0; i < 30; i++) {
-                    [array addObject:[NSNumber numberWithLong:random() % 100]];
-                }
-                return array;
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 20; i < 30; i++) {
+                [array addObject:[NSNumber numberWithLong:random() % 100]];
             }
+            return array;
+        }
             break;
         case 1:
-            {
-                NSMutableArray *array = [[NSMutableArray alloc] init];
-                for (int i = 0; i < 30; i++) {
-                    [array addObject:[NSNumber numberWithLong:random() % 50]];
-                }
-                return array;
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 0; i < 10; i++) {
+                [array addObject:[NSNumber numberWithLong:random() % 100]];
             }
+            return array;
+        }
             break;
         case 2:
-            {
-                NSMutableArray *array = [[NSMutableArray alloc] init];
-                [array addObject:[NSNumber numberWithLong:random() % 100]];
-                [array addObject:[NSNumber numberWithLong:random() % 100]];
-
-                return array;
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 0; i < 30; i++) {
+                [array addObject:[NSNumber numberWithLong:random() % 50]];
             }
+            return array;
+        }
             break;
         case 3:
-            {
-                NSMutableArray *array = [[NSMutableArray alloc] init];
-                [array addObject:[NSString stringWithFormat:@"%d", (int)(1000 + random() % 100)]];
-                [array addObject:[NSString stringWithFormat:@"%d", (int)(1000 + random() % 100)]];
-                return array;
-            }
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [array addObject:[NSNumber numberWithLong:random() % 100]];
+            [array addObject:[NSNumber numberWithLong:random() % 100]];
+            return array;
+        }
+            break;
+        case 4:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            return array;
+        }
             break;
         default:
             break;
@@ -212,7 +219,59 @@
     return [[NSMutableArray alloc] init];
 }
 
-- (UIView *)customViewForLineChartTouchWithXValue:(NSNumber *)xValue andYValue:(NSNumber *)yValue{
+- (NSMutableArray *)dataForXAxisWithLineNumber:(NSInteger)lineNumber {
+    switch (lineNumber) {
+        case 0:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 21; i <= 30; i++) {
+                [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
+            }
+            return array;
+        }
+            break;
+        case 1:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 1; i <= 30; i++) {
+                [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
+            }
+            return array;
+        }
+            break;
+        case 2:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 1; i <= 30; i++) {
+                [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
+            }
+            return array;
+        }
+            break;
+        case 3:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 1; i <= 30; i+=10) {
+                [array addObject:[NSString stringWithFormat:@"%d Jun", i]];
+            }
+            return array;
+        }
+            break;
+        case 4:
+        {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            [array addObject:@"6 Jun"];
+            [array addObject:@"28 Jun"];
+            return array;
+        }
+            break;
+        default:
+            break;
+    }
+    return [[NSMutableArray alloc] init];
+}
+
+- (UIView *)customViewForLineChartTouchWithXValue:(id)xValue andYValue:(id)yValue{
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor whiteColor]];
     [view.layer setCornerRadius:4.0F];
@@ -225,8 +284,8 @@
     UILabel *label = [[UILabel alloc] init];
     [label setFont:[UIFont systemFontOfSize:12]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setText:[NSString stringWithFormat:@"Line Data: %@", yValue]];
-    [label setFrame:CGRectMake(0, 0, 100, 30)];
+    [label setText:[NSString stringWithFormat:@"Line Data:y = %@ x = %@", yValue, xValue]];
+    [label setFrame:CGRectMake(0, 0, 200, 30)];
     [view addSubview:label];
     
     [view setFrame:label.frame];
