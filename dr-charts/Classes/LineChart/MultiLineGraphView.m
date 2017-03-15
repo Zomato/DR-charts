@@ -303,16 +303,9 @@
                     int x = 0;
                     int y = 0;
                     
-                    int j = 0;
+                    NSInteger itemIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:0]];
                     
-                    for (int i = 0; i < self.xAxisArray.count; i ++) {
-                        if ([self.xAxisArray objectAtIndex:i] == [lineData.xAxisArray objectAtIndex:j]) {
-                            j = i;
-                            break;
-                        }
-                    }
-                    
-                    x = j * stepX;
+                    x = itemIndex * stepX;
                     y = [[lineData.yAxisArray objectAtIndex:0] floatValue] * stepY;
                     
                     CGPoint startPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
@@ -327,7 +320,8 @@
                     
                     CGPoint endPoint;
                     for (int i = 1; i < lineData.yAxisArray.count; i++){
-                        x = (j + i) * stepX;
+                        NSInteger xIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:i]];
+                        x = xIndex * stepX;
                         y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
                         
                         endPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
@@ -600,17 +594,10 @@
         if (lineData.lineType == LineDefault) {
             int x = 0;
             int y = 0;
-            int j = 0;
-            
-            for (int i = 0; i < self.xAxisArray.count; i ++) {
-                if ([self.xAxisArray objectAtIndex:i] == [lineData.xAxisArray objectAtIndex:j]) {
-                    j = i;
-                    break;
-                }
-            }
-            
+
             for (int i = 0; i < lineData.yAxisArray.count; i++){
-                x = (j + i) * stepX;
+                NSInteger xIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:i]];
+                x = xIndex * stepX;
                 y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
                 
                 CGPoint point = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
