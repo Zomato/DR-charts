@@ -125,7 +125,7 @@
 - (void)drawGraph{
     widht = WIDTH(self);
 
-    height = HEIGHT(self) - 2*INNER_PADDING;
+    height = HEIGHT(self) - 2*INNER_PADDING - self.extraPaddingAboveGraph;
     scaleHeight = height;
     
     [self getDataFromDataSource];
@@ -135,7 +135,7 @@
         scaleHeight = height;
     }
     
-    self.graphScrollView = [[DRScrollView alloc] initWithFrame:CGRectMake(0, INNER_PADDING + self.extraPaddingAboveGraph, WIDTH(self), height)];
+    self.graphScrollView = [[DRScrollView alloc] initWithFrame:CGRectMake(0, INNER_PADDING, WIDTH(self), height)];
     [self.graphScrollView setScrollEnabled:YES];
     [self.graphScrollView setShowsVerticalScrollIndicator:NO];
     [self.graphScrollView setShowsHorizontalScrollIndicator:NO];
@@ -145,7 +145,7 @@
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGraphZoom:)];
     [self.graphScrollView addGestureRecognizer:pinchGesture];
     
-    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, height)];
+    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, self.extraPaddingAboveGraph, widht, height)];
     [self.graphView setUserInteractionEnabled:YES];
     
     [self createYAxisLine];
