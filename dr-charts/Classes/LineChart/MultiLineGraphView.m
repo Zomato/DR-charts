@@ -125,7 +125,7 @@
 - (void)drawGraph{
     widht = WIDTH(self);
 
-    height = HEIGHT(self) - 2*INNER_PADDING - self.extraPaddingAboveGraph;
+    height = HEIGHT(self) - 2*INNER_PADDING;
     scaleHeight = height;
     
     [self getDataFromDataSource];
