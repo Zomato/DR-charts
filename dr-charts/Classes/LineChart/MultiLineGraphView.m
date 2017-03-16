@@ -135,7 +135,7 @@
         scaleHeight = height;
     }
     
-    self.graphScrollView = [[DRScrollView alloc] initWithFrame:CGRectMake(0, INNER_PADDING, WIDTH(self), height)];
+    self.graphScrollView = [[DRScrollView alloc] initWithFrame:CGRectMake(0, INNER_PADDING + self.extraPaddingAboveGraph, WIDTH(self), height)];
     [self.graphScrollView setScrollEnabled:YES];
     [self.graphScrollView setShowsVerticalScrollIndicator:NO];
     [self.graphScrollView setShowsHorizontalScrollIndicator:NO];
