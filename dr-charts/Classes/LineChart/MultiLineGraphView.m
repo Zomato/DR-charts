@@ -82,6 +82,8 @@
         
         self.showCustomMarkerView = FALSE;
         
+        self.extraPaddingAboveGraph = 0;
+        
         scaleHeight = 0;
         lastScale = 1;
     }
@@ -123,7 +125,7 @@
 - (void)drawGraph{
     widht = WIDTH(self);
 
-    height = HEIGHT(self) - 2*INNER_PADDING;
+    height = HEIGHT(self) - 2*INNER_PADDING - self.extraPaddingAboveGraph;
     scaleHeight = height;
     
     [self getDataFromDataSource];
@@ -530,6 +532,10 @@
             [self findValueForTouch:touch];
         }
     }
+    
+    if ([self.delegate respondsToSelector:@selector(didBeganTouchOnGraph)]) {
+        [self.delegate didBeganTouchOnGraph];
+    }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -545,17 +551,29 @@
             [self findValueForTouch:touch];
         }
     }
+    
+    if ([self.delegate respondsToSelector:@selector(didBeganTouchOnGraph)]) {
+        [self.delegate didBeganTouchOnGraph];
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     if (self.showMarker || self.showCustomMarkerView) {
         [self hideMarker];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(didEndTouchOnGraph)]) {
+        [self.delegate didEndTouchOnGraph];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     if (self.showMarker || self.showCustomMarkerView) {
         [self hideMarker];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(didEndTouchOnGraph)]) {
+        [self.delegate didEndTouchOnGraph];
     }
 }
 
