@@ -105,8 +105,6 @@ typedef enum {
 //Set LEGEND TYPE Horizontal or Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
 
-@property (nonatomic) CGFloat extraPaddingAboveGraph; //Default is 0, Can be used if Custom Marker View is big or multiline.
-
 //To draw the graph
 - (void)drawGraph;
 

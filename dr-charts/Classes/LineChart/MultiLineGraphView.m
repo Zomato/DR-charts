@@ -82,8 +82,6 @@
         
         self.showCustomMarkerView = FALSE;
         
-        self.extraPaddingAboveGraph = 0;
-        
         scaleHeight = 0;
         lastScale = 1;
     }
@@ -125,7 +123,7 @@
 - (void)drawGraph{
     widht = WIDTH(self);
 
-    height = HEIGHT(self) - 2*INNER_PADDING - self.extraPaddingAboveGraph;
+    height = HEIGHT(self) - 2*INNER_PADDING;
     scaleHeight = height;
     
     [self getDataFromDataSource];
@@ -145,7 +143,7 @@
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGraphZoom:)];
     [self.graphScrollView addGestureRecognizer:pinchGesture];
     
-    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, self.extraPaddingAboveGraph, widht, height)];
+    self.graphView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widht, height)];
     [self.graphView setUserInteractionEnabled:YES];
     
     [self createYAxisLine];
@@ -659,8 +657,8 @@
                 
                 [self.customMarkerView setFrame:CGRectMake(selectedPoint.x, OFFSET_Y - HEIGHT(self.customMarkerView), WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
                 [self.graphView addSubview:self.customMarkerView];
+                [self.graphView bringSubviewToFront:self.customMarkerView];
             }
-            [self.graphScrollView addSubview:self.customMarkerView];
         }
         else if (self.showMarker) {
             [self.marker setXString:selectedXData];
