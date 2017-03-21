@@ -281,14 +281,21 @@
     [view.layer setShadowRadius:2.0F];
     [view.layer setShadowOpacity:0.3F];
     
-    UILabel *label = [[UILabel alloc] init];
-    [label setFont:[UIFont systemFontOfSize:12]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setText:[NSString stringWithFormat:@"Line Data:y = %@ x = %@", yValue, xValue]];
-    [label setFrame:CGRectMake(0, 0, 200, 30)];
-    [view addSubview:label];
+    CGFloat y = 0;
+    CGFloat width = 0;
+    for (int i = 0; i < 3 ; i++) {
+        UILabel *label = [[UILabel alloc] init];
+        [label setFont:[UIFont systemFontOfSize:12]];
+        [label setTextAlignment:NSTextAlignmentCenter];
+        [label setText:[NSString stringWithFormat:@"Line Data:y = %@ x = %@", yValue, xValue]];
+        [label setFrame:CGRectMake(0, y, 200, 30)];
+        [view addSubview:label];
+        
+        width = WIDTH(label);
+        y = BOTTOM(label);
+    }
     
-    [view setFrame:label.frame];
+    [view setFrame:CGRectMake(0, 0, width, y)];
     return view;
 }
 

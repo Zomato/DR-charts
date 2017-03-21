@@ -655,7 +655,7 @@
             
             if (self.customMarkerView != nil) {
                 
-                [self.customMarkerView setFrame:CGRectMake(selectedPoint.x, OFFSET_Y - HEIGHT(self.customMarkerView), WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
+                [self.customMarkerView setFrame:CGRectMake(selectedPoint.x, 0, WIDTH(self.customMarkerView), HEIGHT(self.customMarkerView))];
                 [self.graphView addSubview:self.customMarkerView];
                 [self.graphView bringSubviewToFront:self.customMarkerView];
             }
