@@ -7,7 +7,7 @@
 //
 
 #import "CircularChart.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 @interface CircularChartDataRenderer : NSObject
 

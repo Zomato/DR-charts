@@ -9,7 +9,7 @@
 #import "MultiLineGraphView.h"
 #import "LineGraphMarker.h"
 #import "DRScrollView.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 @interface LineChartDataRenderer : NSObject
 
@@ -30,6 +30,9 @@
 @interface MultiLineGraphView()<UIScrollViewDelegate>{
     float stepY;
     float stepX;
+    float yAxisMinValue;
+    float yAxisMaxValue;
+
     
     NSString *selectedXData;
     NSString *selectedYData;
@@ -54,6 +57,8 @@
 @property (nonatomic, strong) NSMutableArray *legendArray;
 @property (nonatomic, strong) NSMutableArray *lineDataArray;
 
+@property (nonatomic, copy) NSString *axisAlignmentMode;
+
 @end
 
 @implementation MultiLineGraphView
@@ -66,6 +71,7 @@
         
         self.gridLineColor = [UIColor lightGrayColor];
         self.gridLineWidth = 0.3;
+        self.axisLineColor = self.gridLineColor;
         
         self.textFontSize = 11;
         self.textColor = [UIColor blackColor];
@@ -81,6 +87,13 @@
         self.showMarker = TRUE;
         
         self.showCustomMarkerView = FALSE;
+        
+        self.xAixsStepNumber = 5;
+        self.yAixsStepNumber = 5;
+        self.animationDuration = ANIMATION_DURATION;
+        self.yAixsDefaultMin = -5;
+        self.yAixsDefaultMax = 5;
+        self.axisAlignmentMode = kCAAlignmentCenter;
         
         scaleHeight = 0;
         lastScale = 1;
@@ -111,12 +124,11 @@
         [data setLegendText:lineData.graphName];
         [data setLegendColor:lineData.lineColor];
         [self.legendArray addObject:data];
-        
-        if (self.xAxisArray.count < lineData.xAxisArray.count) {
-            [self.xAxisArray removeAllObjects];
-            [self.xAxisArray addObjectsFromArray:lineData.xAxisArray];
-        }
     }
+    
+    [self.xAxisArray removeAllObjects];
+    [self.xAxisArray addObjectsFromArray:[self.dataSource dataForXAxisForAllLines]];
+
 }
 
 #pragma mark Draw Graph
@@ -172,8 +184,8 @@
 
 #pragma Draw Shape Layer
 - (void)createYAxisLine{
-    float minY = 0.0;
-    float maxY = 0.0;
+    float minY = _yAixsDefaultMin;
+    float maxY = _yAixsDefaultMax;
     
     for (LineChartDataRenderer *lineData in self.lineDataArray) {
         
@@ -194,15 +206,18 @@
         }
     }
     
-    int gridYCount = 5;
+    int gridYCount = _yAixsStepNumber;
     
     if (scaleHeight > height) {
         gridYCount = ceil(gridYCount * lastScale);
     }
     
     float step = (maxY - minY) / gridYCount;
+    yAxisMinValue = minY;
+    yAxisMaxValue = maxY;
 
     stepY = (HEIGHT(self.graphView) - (OFFSET_Y * 2)) / (maxY - minY);
+    self.axisAlignmentMode = kCAAlignmentRight;
     
     for (int i = 0; i <= gridYCount; i++) {
         int y = (i * step) * stepY;
@@ -212,6 +227,9 @@
         CGPoint endPoint = CGPointMake(WIDTH(self.graphView) - OFFSET_X, HEIGHT(self.graphView) - (y + OFFSET_Y));
         
         NSString *numberString = [NSString stringWithFormat:@"%.1f",value];
+        if ([self.dataSource respondsToSelector:@selector(customYAxisFormat:)]) {
+            numberString = [self.dataSource customYAxisFormat:value];
+        }
         
         BOOL drawGrid = TRUE;
         if (self.drawGridY) {
@@ -228,7 +246,7 @@
         NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
         CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(OFFSET_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(startPoint.x - size.width - 1, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid isAxisLine:i == 0];
     }
 }
 
@@ -236,8 +254,8 @@
     float step = 0;
     NSInteger maxStep = [self.xAxisArray count];
 
-    if ([self.xAxisArray count] > 5) {
-        int stepCount = 5;
+    if ([self.xAxisArray count] > _xAixsStepNumber) {
+        int stepCount = _xAixsStepNumber;
         
         if (widht > WIDTH(self)) {
             stepCount = ceil(stepCount * lastScale);
@@ -245,7 +263,7 @@
     
         NSInteger count = [self.xAxisArray count] - 1;
         
-        for (int i = 4; i < 8; i++) {
+        for (int i = _xAixsStepNumber - 1; i < (_xAixsStepNumber - 1) * 2; i++) {
             if (count % i == 0) {
                 stepCount = i;
                 break;
@@ -259,6 +277,7 @@
     }
 
     stepX = (WIDTH(self.graphView) - (OFFSET_X * 2)) / (self.xAxisArray.count - 1);
+    self.axisAlignmentMode = kCAAlignmentCenter;
     
     for (int i = 0; i <= maxStep; i++) {
         int x = (i * step) * stepX;
@@ -288,10 +307,15 @@
                 drawGrid = FALSE;
             }
         }
-        NSAttributedString *attrString = [LegendView getAttributedString:[self.xAxisArray objectAtIndex:index] withFont:self.textFont];
+        
+        NSString *xAxisValue = [self.xAxisArray objectAtIndex:index];
+        if ([self.dataSource respondsToSelector:@selector(customXAxisFormat:)]) {
+            xAxisValue = [self.dataSource customXAxisFormat:xAxisValue];
+        }
+        NSAttributedString *attrString = [LegendView getAttributedString:xAxisValue withFont:self.textFont];
         CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:[self.xAxisArray objectAtIndex:index] textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:xAxisValue textFrame:CGRectMake(x + size.width/2, HEIGHT(self.graphView) - (size.height + INNER_PADDING), size.width, size.height) drawGrid:drawGrid isAxisLine:i == 0];
     }
 }
 
@@ -306,7 +330,7 @@
                     NSInteger itemIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:0]];
                     
                     x = itemIndex * stepX;
-                    y = [[lineData.yAxisArray objectAtIndex:0] floatValue] * stepY;
+                    y = ([[lineData.yAxisArray objectAtIndex:0] floatValue] - yAxisMinValue) * stepY;
                     
                     CGPoint startPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
                     CGPoint firstPoint = startPoint;
@@ -322,7 +346,7 @@
                     for (int i = 1; i < lineData.yAxisArray.count; i++){
                         NSInteger xIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:i]];
                         x = xIndex * stepX;
-                        y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
+                        y = ([[lineData.yAxisArray objectAtIndex:i] floatValue] - yAxisMinValue) * stepY;
                         
                         endPoint = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
                         
@@ -348,7 +372,7 @@
                     [shapeLayer setContentsScale:[[UIScreen mainScreen] scale]];
                     
                     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-                    [pathAnimation setDuration:ANIMATION_DURATION];
+                    [pathAnimation setDuration:_animationDuration];
                     [pathAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
                     [pathAnimation setToValue:[NSNumber numberWithFloat:1.0f]];
                     [shapeLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
@@ -371,7 +395,7 @@
                     int y = 0;
                     
                     for (int i = 0; i < lineData.yAxisArray.count; i++){
-                        y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
+                        y = ([[lineData.yAxisArray objectAtIndex:i] floatValue] - yAxisMinValue) * stepY;
 
                         CGPoint startPoint = CGPointMake(OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
                         CGPoint endPoint = CGPointMake(WIDTH(self.graphView) - OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
@@ -389,10 +413,10 @@
                     
                     if (lineData.fillGraph) {
                         
-                        y = [[lineData.yAxisArray firstObject] floatValue] * stepY;
+                        y = ([[lineData.yAxisArray firstObject] floatValue] - yAxisMinValue) * stepY;
                         CGPoint point1 = CGPointMake(OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
                         
-                        y = [[lineData.yAxisArray lastObject] floatValue] * stepY;
+                        y = ([[lineData.yAxisArray lastObject] floatValue] - yAxisMinValue) * stepY;
                         CGPoint point2 = CGPointMake(WIDTH(self.graphView) - OFFSET_X, HEIGHT(self.graphView) - (OFFSET_Y + y));
                         
                         UIBezierPath *fillPath = [UIBezierPath bezierPath];
@@ -614,7 +638,7 @@
             for (int i = 0; i < lineData.yAxisArray.count; i++){
                 NSInteger xIndex = [self.xAxisArray indexOfObject:[lineData.xAxisArray objectAtIndex:i]];
                 x = xIndex * stepX;
-                y = [[lineData.yAxisArray objectAtIndex:i] floatValue] * stepY;
+                y = ([[lineData.yAxisArray objectAtIndex:i] floatValue] - yAxisMinValue) * stepY;
                 
                 CGPoint point = CGPointMake(x + OFFSET_X, HEIGHT(self.graphView) - ( y + OFFSET_Y));
                 
@@ -704,7 +728,7 @@
     [shapeLayer setOpacity:0.1];
     
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"fill"];
-    [pathAnimation setDuration:ANIMATION_DURATION];
+    [pathAnimation setDuration:_animationDuration];
     [pathAnimation setFillMode:kCAFillModeForwards];
     [pathAnimation setFromValue:(id)[[UIColor clearColor] CGColor]];
     [pathAnimation setToValue:(id)[color CGColor]];
@@ -717,12 +741,12 @@
 }
 
 #pragma mark Draw Grid Lines
-- (void)drawLineForGridWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint text:(NSString *)text textFrame:(CGRect)frame drawGrid:(BOOL)draw{
+- (void)drawLineForGridWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint text:(NSString *)text textFrame:(CGRect)frame drawGrid:(BOOL)draw isAxisLine:(BOOL)isAxisLine{
     
     if (draw) {
         CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
         [shapeLayer setPath:[[self drawPathWithStartPoint:startPoint endPoint:endPoint] CGPath]];
-        [shapeLayer setStrokeColor:self.gridLineColor.CGColor];
+        [shapeLayer setStrokeColor:isAxisLine ? self.axisLineColor.CGColor : self.gridLineColor.CGColor];
         [shapeLayer setLineWidth:self.gridLineWidth];
         [self.graphView.layer addSublayer:shapeLayer];
     }
@@ -732,7 +756,7 @@
     [textLayer setFontSize:self.textFontSize];
     [textLayer setFrame:frame];
     [textLayer setString:text];
-    [textLayer setAlignmentMode:kCAAlignmentCenter];
+    [textLayer setAlignmentMode:self.axisAlignmentMode];
     [textLayer setForegroundColor:self.textColor.CGColor];
     [textLayer setShouldRasterize:YES];
     [textLayer setRasterizationScale:[[UIScreen mainScreen] scale]];

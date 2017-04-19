@@ -7,7 +7,7 @@
 //
 
 #import "PieChart.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 @interface PieChartDataRenderer : NSObject
 

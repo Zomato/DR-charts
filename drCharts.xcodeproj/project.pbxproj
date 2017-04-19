@@ -14,7 +14,7 @@
 		C50CCB531D0EA0D3002C87B7 /* BarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB3C1D0EA0D3002C87B7 /* BarChart.m */; };
 		C50CCB541D0EA0D3002C87B7 /* CircularChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB3E1D0EA0D3002C87B7 /* CircularChart.h */; };
 		C50CCB551D0EA0D3002C87B7 /* CircularChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB3F1D0EA0D3002C87B7 /* CircularChart.m */; };
-		C50CCB561D0EA0D3002C87B7 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB401D0EA0D3002C87B7 /* Constants.h */; };
+		C50CCB561D0EA0D3002C87B7 /* DrConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB401D0EA0D3002C87B7 /* DrConstants.h */; };
 		C50CCB571D0EA0D3002C87B7 /* DrGraphs.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */; };
 		C50CCB581D0EA0D3002C87B7 /* DRScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */; };
 		C50CCB591D0EA0D3002C87B7 /* DRScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */; };
@@ -51,7 +51,7 @@
 		C50CCB3C1D0EA0D3002C87B7 /* BarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarChart.m; sourceTree = "<group>"; };
 		C50CCB3E1D0EA0D3002C87B7 /* CircularChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularChart.h; sourceTree = "<group>"; };
 		C50CCB3F1D0EA0D3002C87B7 /* CircularChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularChart.m; sourceTree = "<group>"; };
-		C50CCB401D0EA0D3002C87B7 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C50CCB401D0EA0D3002C87B7 /* DrConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrConstants.h; sourceTree = "<group>"; };
 		C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrGraphs.h; sourceTree = "<group>"; };
 		C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRScrollView.h; sourceTree = "<group>"; };
 		C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRScrollView.m; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 			children = (
 				C50CCB3A1D0EA0D3002C87B7 /* BarChart */,
 				C50CCB3D1D0EA0D3002C87B7 /* CircularChart */,
-				C50CCB401D0EA0D3002C87B7 /* Constants.h */,
+				C50CCB401D0EA0D3002C87B7 /* DrConstants.h */,
 				C50CCB411D0EA0D3002C87B7 /* DrGraphs.h */,
 				C50CCB421D0EA0D3002C87B7 /* DRScrollView.h */,
 				C50CCB431D0EA0D3002C87B7 /* DRScrollView.m */,
@@ -214,7 +214,7 @@
 				C50CCB231D0EA0AB002C87B7 /* drCharts.h in Headers */,
 				C50CCB5C1D0EA0D3002C87B7 /* LegendView.h in Headers */,
 				C50CCB5A1D0EA0D3002C87B7 /* HorizontalStackBarChart.h in Headers */,
-				C50CCB561D0EA0D3002C87B7 /* Constants.h in Headers */,
+				C50CCB561D0EA0D3002C87B7 /* DrConstants.h in Headers */,
 				C50CCB521D0EA0D3002C87B7 /* BarChart.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

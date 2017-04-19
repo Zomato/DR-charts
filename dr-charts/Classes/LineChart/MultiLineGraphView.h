@@ -65,9 +65,18 @@ typedef enum {
 //Set xData for Line on Line Graph for corresponding yData
 //If LineType is LineParallelYAxis, Set xData for the Line on Line Graph
 
+- (NSMutableArray *)dataForXAxisForAllLines;
+//Set xData for All Line on Line Graph for corresponding yData
+
 @optional
 - (UIView *)customViewForLineChartTouchWithXValue:(id)xValue andYValue:(id)yValue;
 //Set Custom View for touch on each item in a Line Chart
+
+- (NSString *)customYAxisFormat:(float)yAxisValue;
+//Set Custom Format for yAxix Value
+
+- (NSString *)customXAxisFormat:(NSString *)xAxisValue;
+//Set Custom Format for xAxix Value
 
 @end
 
@@ -104,6 +113,19 @@ typedef enum {
 @property (nonatomic) BOOL showLegend; //Default is TRUE
 //Set LEGEND TYPE Horizontal or Vertical
 @property (nonatomic) LegendType legendViewType; //Default is LegendTypeVertical i.e. VERTICAL
+
+//Set step number for xAxis display value
+@property (nonatomic) int xAixsStepNumber;
+//Set step number for yAxis display value
+@property (nonatomic) int yAixsStepNumber;
+//Set animation duration time
+@property (nonatomic) float animationDuration;
+//Set default min value for yAxis
+@property (nonatomic) float yAixsDefaultMin;
+//Set default max value for yAxis
+@property (nonatomic) float yAixsDefaultMax;
+//Set axis Line color (not same with gridLineColor)
+@property (nonatomic, strong) UIColor *axisLineColor;
 
 //To draw the graph
 - (void)drawGraph;

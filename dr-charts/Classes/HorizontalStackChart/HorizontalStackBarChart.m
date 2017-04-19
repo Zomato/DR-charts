@@ -7,7 +7,7 @@
 //
 
 #import "HorizontalStackBarChart.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 @interface HorizontalStackBarData : NSObject
 

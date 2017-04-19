@@ -8,7 +8,7 @@
 
 #import "BarChart.h"
 #import "DRScrollView.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 @interface BarChartDataRenderer : NSObject
 
