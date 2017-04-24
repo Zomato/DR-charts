@@ -15,6 +15,6 @@
 #import "BarChart.h"
 #import "CircularChart.h"
 #import "LegendView.h"
-#import "Constants.h"
+#import "DrConstants.h"
 
 #endif /* DrGraphs_h */
