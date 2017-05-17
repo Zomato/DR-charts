@@ -226,9 +226,9 @@
             }
         }
         NSAttributedString *attrString = [LegendView getAttributedString:numberString withFont:self.textFont];
-        CGSize size = [attrString boundingRectWithSize:CGSizeMake(WIDTH(self) - LEGEND_VIEW, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        CGSize size = [attrString boundingRectWithSize:CGSizeMake(OFFSET_X, MAXFLOAT) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin context:nil].size;
 
-        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(OFFSET_PADDING, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), size.width , size.height) drawGrid:drawGrid];
+        [self drawLineForGridWithStartPoint:startPoint endPoint:endPoint text:numberString textFrame:CGRectMake(1, HEIGHT(self.graphView) - (y + OFFSET_Y + size.height/2), OFFSET_X - 1, size.height) drawGrid:drawGrid];
     }
 }
 
@@ -737,6 +737,7 @@
     [textLayer setShouldRasterize:YES];
     [textLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
     [textLayer setContentsScale:[[UIScreen mainScreen] scale]];
+    [textLayer setWrapped:YES];
     [self.graphView.layer addSublayer:textLayer];
 }
 
