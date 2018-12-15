@@ -3,7 +3,7 @@ dr-charts
 
 Easy to use, customizable and interactive charts library for iOS in Objective-C
 
-####Features:
+###Features:
 * Multiple chart types
   * Line / Multiple lines / Lines Parallel To X and Y -Axis
   * Circular Charts
