@@ -15,8 +15,7 @@ Easy to use, customizable and interactive charts library for iOS in Objective-C
 * Extremely customizable
 
 
-###Objective-C, iOS 7, 8, 9
-
+###Objective-C, iOS 8+
 
 ### Demo
 
