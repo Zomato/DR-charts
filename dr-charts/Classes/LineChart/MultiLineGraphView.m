@@ -90,9 +90,9 @@
 
 #pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
-    self.xAxisArray = [[NSMutableArray alloc] init];
-    self.lineDataArray = [[NSMutableArray alloc] init];
-    self.legendArray = [[NSMutableArray alloc] init];
+    [self.xAxisArray removeAllObjects];
+    [self.lineDataArray removeAllObjects];
+    [self.legendArray removeAllObjects];
     
     for (int i = 0 ; i < [self.dataSource numberOfLinesToBePlotted]; i++) {
         LineChartDataRenderer *lineData = [[LineChartDataRenderer alloc] init];

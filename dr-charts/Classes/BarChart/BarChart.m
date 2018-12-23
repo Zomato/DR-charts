@@ -68,9 +68,9 @@
 
 #pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
-    self.xAxisArray = [[NSMutableArray alloc] init];
-    self.barDataArray = [[NSMutableArray alloc] init];
-    self.legendArray = [[NSMutableArray alloc] init];
+    [self.xAxisArray removeAllObjects];
+    [self.barDataArray removeAllObjects];
+    [self.legendArray removeAllObjects];
     
     stepX = 0;
     
