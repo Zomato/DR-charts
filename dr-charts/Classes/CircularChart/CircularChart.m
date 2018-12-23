@@ -64,6 +64,10 @@
 
 #pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
+    [self.dataArray removeAllObjects];
+    [self.legendArray removeAllObjects];
+    self.totalCount = @(0);
+    
     for(int i = 0; i <[self.dataSource numberOfValuesForCircularChart] ; i++){
         CircularChartDataRenderer *data = [[CircularChartDataRenderer alloc] init];
         [data setColor:[self.dataSource colorForValueInCircularChartWithIndex:i]];

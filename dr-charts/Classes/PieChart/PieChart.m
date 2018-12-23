@@ -62,6 +62,10 @@
 
 #pragma mark Get Data From Data Source
 - (void)getDataFromDataSource{
+    [self.dataArray removeAllObjects];
+    [self.legendArray removeAllObjects];
+    self.totalCount = @(0);
+    
     for(int i = 0; i <[self.dataSource numberOfValuesForPieChart] ; i++){
         PieChartDataRenderer *data = [[PieChartDataRenderer alloc] init];
         [data setColor:[self.dataSource colorForValueInPieChartWithIndex:i]];
