@@ -420,7 +420,7 @@
     NSLog(@"Horizontal Stack Chart: %@",value);
 }
 
-#pragma Mark CreateHorizontalChart
+#pragma Mark createBarChart
 - (void)createBarChart{
     BarChart *barChartView = [[BarChart alloc] initWithFrame:CGRectMake(0, header_height, WIDTH(self.view), HEIGHT(self.view) - header_height)];
     [barChartView setDataSource:self];
