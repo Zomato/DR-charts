@@ -3,7 +3,7 @@ dr-charts
 
 Easy to use, customizable and interactive charts library for iOS in Objective-C
 
-###Features:
+### Features:
 * Multiple chart types
   * Line / Multiple lines / Lines Parallel To X and Y -Axis
   * Circular Charts
@@ -15,7 +15,7 @@ Easy to use, customizable and interactive charts library for iOS in Objective-C
 * Extremely customizable
 
 
-###Objective-C, iOS 8+
+### Objective-C, iOS 8+
 
 ### Demo
 
@@ -42,7 +42,7 @@ The simplest way to add _Dr-Charts_ to your project is to drag and drop the /Cla
 
 This is an example of Line Chart:
 
-######Set Properties
+###### Set Properties
 ```objc
 pragma Mark CreateLineGraph
 - (void)createLineGraph{
@@ -74,7 +74,7 @@ pragma Mark CreateLineGraph
     [self.view addSubview:graph];
 }
 ```
-######Set DataSource
+###### Set DataSource
 ```objc
 #pragma mark MultiLineGraphViewDataSource
 - (NSMutableArray *)xDataForLineToBePlotted{
@@ -178,7 +178,7 @@ pragma Mark CreateLineGraph
     return view;
 }
 ```
-######Set Delegate
+###### Set Delegate
 ```objc
 #pragma mark MultiLineGraphViewDelegate
 - (void)didTapWithValuesAtX:(NSString *)xValue valuesAtY:(NSString *)yValue{
@@ -190,7 +190,7 @@ pragma Mark CreateLineGraph
 
 This is an example of a Bar Chart:
 
-######Set Properties
+###### Set Properties
 ```objc
 #pragma Mark CreateHorizontalChart
 - (void)createBarChart{
@@ -217,7 +217,7 @@ This is an example of a Bar Chart:
     [self.view addSubview:barChartView];
 }
 ```
-######Set DataSource
+###### Set DataSource
 ```objc
 #pragma mark BarChartDataSource
 - (NSMutableArray *)xDataForBarChart{
@@ -277,7 +277,7 @@ This is an example of a Bar Chart:
     return view;
 }
 ```
-######Set Delegate
+###### Set Delegate
 ```objc
 #pragma mark BarChartDelegate
 - (void)didTapOnBarChartWithValue:(NSString *)value{
@@ -289,7 +289,7 @@ This is an example of a Bar Chart:
 
 This is an example of Pie Chart
 
-######Set Properties
+###### Set Properties
 ```objc
 #pragma Mark CreatePieChart
 - (void)createPieChart{
@@ -311,7 +311,7 @@ This is an example of Pie Chart
     [self.view addSubview:chart];
 }
 ```
-######Set DataSource
+###### Set DataSource
 ```objc
 #pragma mark PieChartDataSource
 - (NSInteger)numberOfValuesForPieChart{
@@ -355,7 +355,7 @@ This is an example of Pie Chart
     return view;
 }
 ```
-######Set Delegate
+###### Set Delegate
 ```objc
 #pragma mark PieChartDelegate
 - (void)didTapOnPieChartWithValue:(NSString *)value{
@@ -367,7 +367,7 @@ This is an example of Pie Chart
 
 This is an example of Horizontal Stack Chart
 
-######Set Properties
+###### Set Properties
 ```objc
 #pragma Mark CreateHorizontalChart
 - (void)createHorizontalStackChart{
@@ -389,7 +389,7 @@ This is an example of Horizontal Stack Chart
     [self.view addSubview:chartView];
 }
 ```
-######Set DataSource
+###### Set DataSource
 ```objc
 #pragma mark HorizontalStackBarChartDataSource
 - (NSInteger)numberOfValuesForStackChart{
@@ -433,7 +433,7 @@ This is an example of Horizontal Stack Chart
     return view;
 }
 ```
-######Set Delegate
+###### Set Delegate
 ```objc
 #pragma mark HorizontalStackBarChartDelegate
 - (void)didTapOnHorizontalStackBarChartWithValue:(NSString *)value{
@@ -445,7 +445,7 @@ This is an example of Horizontal Stack Chart
 
 This is an example of Circular Chart
 
-######Set Properties
+###### Set Properties
 ```objc
 #pragma Mark CreateCircularChart
 - (void)createCircularChart{
@@ -466,7 +466,7 @@ This is an example of Circular Chart
     [self.view addSubview:chart];
 }
 ```
-######Set DataSource
+###### Set DataSource
 ```objc
 #pragma mark CircularChartDataSource
 - (CGFloat)strokeWidthForCircularChart{
@@ -515,7 +515,7 @@ This is an example of Circular Chart
     return view;
 }
 ```
-######Set Delegate
+###### Set Delegate
 ```objc
 #pragma mark CircularChartDelegate
 - (void)didTapOnCircularChartWithValue:(NSString *)value{
